@@ -1,4 +1,4 @@
-package com.gridscircles.cafe.common.entity;
+package com.backend.global.base;
 
 import jakarta.persistence.EntityListeners;
 import lombok.Getter;
@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @CreatedDate
-protected LocalDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     @LastModifiedDate
-protected LocalDateTime updatedAt;
+    protected LocalDateTime updatedAt;
 }
