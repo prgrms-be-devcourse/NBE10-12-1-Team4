@@ -1,4 +1,4 @@
-package com.gridscircles.cafe.order.entity;
+package com.backend.domain.order.entity;
 
 public enum OrderStatus {
 

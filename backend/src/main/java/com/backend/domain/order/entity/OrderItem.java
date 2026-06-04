@@ -1,6 +1,6 @@
-package com.gridscircles.cafe.order.entity;
+package com.backend.domain.order.entity;
 
-import com.gridscircles.cafe.menu.entity.Menu;
+import com.backend.domain.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,10 +14,7 @@ import lombok.*;
         uniqueConstraints = {
                 @UniqueConstraint(
                         name = "uk_order_menu",
-                        columnNames = {
-                                "order_id",
-                                "menu_id"
-                        }
+                        columnNames = {"order_id", "menu_id"}
                 )
         }
 )
@@ -47,5 +44,4 @@ public class OrderItem {
     public void increaseQuantity(int amount) {
         this.quantity += amount;
     }
-
 }

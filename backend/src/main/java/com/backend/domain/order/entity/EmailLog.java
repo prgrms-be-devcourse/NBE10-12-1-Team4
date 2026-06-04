@@ -1,7 +1,6 @@
-package com.gridscircles.cafe.email.entity;
+package com.backend.domain.order.entity;
 
-import com.gridscircles.cafe.common.entity.BaseEntity;
-import com.gridscircles.cafe.order.entity.Order;
+import com.backend.global.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
