@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import type { MenuItem } from "../../type/product";
-import { Icons } from "../components/icons";
-import MenuBar from "../components/MenuBar";
-import ProductPage from "./Product";
+import type { MenuItem } from "../type/product";
+import { Icons } from "./components/icons";
+import MenuBar from "./components/MenuBar";
+import ProductPage from "./product/Product";
 import "../styles.css";
 
 const Admin = () => {
