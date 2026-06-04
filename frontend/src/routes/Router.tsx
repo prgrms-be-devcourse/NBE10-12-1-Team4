@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProductPage from "../admin/product/Product";
+import Admin from "../admin/product/Admin";
 import App from "../App";
 
 const router = createBrowserRouter([
@@ -8,8 +8,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/admin/product",
-    element: <ProductPage />,
+    path: "/admin",
+    element: <Admin />,
   },
 ]);
 
