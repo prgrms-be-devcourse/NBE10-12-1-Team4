@@ -1,6 +1,6 @@
 package com.backend.domain.order.repository;
 
-import com.backend.order.entity.Order;
+import com.backend.domain.order.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
