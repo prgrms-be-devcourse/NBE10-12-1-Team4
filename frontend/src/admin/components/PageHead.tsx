@@ -27,6 +27,7 @@ export function PageHead({
             fontSize: 25,
             fontWeight: 720,
             letterSpacing: "-0.02em",
+            color: "var(--text-2)",
           }}
         >
           {title}

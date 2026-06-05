@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Icons } from "./icons";
-import type { Product, OrderStatus } from "../../type/product";
+import type { OrderStatus, Product } from "../../type/product";
 
 type Tone = "gray" | "brown" | "green" | "amber" | "red" | "blue";
 
@@ -106,12 +106,12 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
   );
 }
 
-/* ---------- Thumb ---------- */
+// /* ---------- Thumb ---------- */
 export function Thumb({
   product,
   style,
 }: {
-  product: Pick<Product, "name" | "color">;
+  product: Pick<Product, "name" | "color" | "img">;
   style?: React.CSSProperties;
 }) {
   const initial = (product.name || "?").trim().charAt(0);
@@ -120,7 +120,23 @@ export function Thumb({
       className="thumb"
       style={{ background: product.color || "#6f4e37", ...style }}
     >
-      <span style={{ fontSize: "inherit" }}>{initial}</span>
+      {product.img ? (
+        <img
+          src={product.img}
+          alt={product.name}
+          loading="lazy"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 2,
+          }}
+        />
+      ) : (
+        <span style={{ fontSize: "inherit" }}>{initial}</span>
+      )}
     </div>
   );
 }

@@ -3,8 +3,15 @@ import * as React from "react";
 export type OrderStatus = "접수" | "준비중" | "완료" | "취소";
 
 export type Product = {
+  id?: string;
   name: string;
-  color?: string;
+  origin: string;
+  weight: number | string;
+  price: number;
+  description: string;
+  img?: string;
+  active?: boolean;
+  stock: number | string;
 };
 
 export type MenuItem = {
