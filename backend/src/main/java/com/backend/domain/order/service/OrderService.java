@@ -1,10 +1,10 @@
-package com.backend.order.service;
+package com.backend.domain.order.service;
 
 import com.backend.order.dto.OrderItemResponse;
 import com.backend.order.dto.OrderResponse;
 import com.backend.order.entity.Order;
 import com.backend.order.entity.OrderItem;
-import com.backend.order.repository.OrderRepository;
+import com.backend.domain.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
