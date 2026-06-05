@@ -1,7 +1,7 @@
 import { Container, Heading, Text, Box, Card, Flex, TextField, Button } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
-export default function CustomerTrack() {
+export default function TrackOrderPage() {
   // 다국어 스캐너(i18n) 우회를 위한 텍스트 목업
   const PAGE_TEXT = {
     title: 'Track Order',

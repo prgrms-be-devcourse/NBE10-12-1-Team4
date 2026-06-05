@@ -1,6 +1,6 @@
 import { Container, Heading, Text, Box, Grid, Flex } from '@radix-ui/themes';
-import ProductCard from '../components/customer/ProductCard';
-import CartModal from '../components/customer/CartModal';
+import ProductCard from '../../components/product/ProductCard';
+import CartDrawer from '../../components/cart/CartDrawer';
 
 const DUMMY_PRODUCTS = [
   { id: '1', name: '에티오피아 예가체프 G1', price: 18000, roastLevel: 'Light', aroma: '플로럴, 베리, 시트러스' },
@@ -9,7 +9,7 @@ const DUMMY_PRODUCTS = [
   { id: '4', name: '디카페인 멕시코', price: 19000, roastLevel: 'Medium', aroma: '구운 아몬드, 갈색 설탕' },
 ];
 
-export default function CustomerStore() {
+export default function StorePage() {
   return (
     <Container size="4" py="8">
       {/* 헤더 및 장바구니 버튼 영역 */}
@@ -20,7 +20,7 @@ export default function CustomerStore() {
             최상급 스페셜티 원두를 당일 로스팅하여 전해드립니다.
           </Text>
         </Box>
-        <CartModal />
+        <CartDrawer />
       </Flex>
       
       {/* 원두 상품 목록 그리드 */}

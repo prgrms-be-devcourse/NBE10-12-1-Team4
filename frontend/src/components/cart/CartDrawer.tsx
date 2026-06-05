@@ -1,6 +1,6 @@
 import { Dialog, Button, Flex, Text, TextField, Box } from '@radix-ui/themes';
 
-export default function CartModal() {
+export default function CartDrawer() {
   return (
     <Dialog.Root>
       <Dialog.Trigger>

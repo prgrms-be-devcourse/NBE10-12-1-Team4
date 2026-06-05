@@ -1,9 +1,9 @@
 import { Theme, Box, Flex } from '@radix-ui/themes';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/common/Navbar';
-import Footer from './components/common/Footer';
-import CustomerStore from './pages/CustomerStore';
-import CustomerTrack from './pages/CustomerTrack';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import StorePage from './pages/customer/StorePage';
+import TrackOrderPage from './pages/customer/TrackOrderPage';
 
 
 function App() {
@@ -24,8 +24,8 @@ function App() {
           <Box style={{ flexGrow: 1 }}>
             <Routes>
               {/* 고객용 페이지 */}
-              <Route path="/" element={<CustomerStore />} />
-              <Route path="/track" element={<CustomerTrack />} />
+              <Route path="/" element={<StorePage />} />
+              <Route path="/track" element={<TrackOrderPage />} />
               
               {/* 관리자용 페이지 (담당 스코프 아님 - 목업 유지) */}
             </Routes>
