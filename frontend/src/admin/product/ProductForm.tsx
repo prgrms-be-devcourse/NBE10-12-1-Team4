@@ -1,18 +1,9 @@
-import { useEffect } from "react";
-import type { ProductFormProps } from "../../type/product";
+import { useEffect, useState } from "react";
+import type { Product, ProductFormProps } from "../../type/product";
 import { Button, Field } from "../components/ui";
 
 const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleEsc);
-    return () => document.removeEventListener("keydown", handleEsc);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
+  const [fetched, setFetched] = useState<Product | null>(initial ?? { id: "p1",  name: "에티오피아 예가체프", origin: "에티오피아",    stock: 1000,  weight: 200, price: 18000, description: "자스민·베르가못·백도의 화사한 산미", active: false, color: "#a06a3c", img: "/beans/p1.png" });
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,6 +54,27 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
     // });
   };
 
+  useEffect(() => {
+    if (!isOpen || !id) {
+      setFetched(initial ?? null);
+      return;
+    }
+    // apiFetch(`/api/v1/products/${id}`)
+    //   .then((data) => setFetched(data.data))
+    //   .catch((error) => alert(`${error.resultCode} : ${error.msg}`));
+  }, [id, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
   return (
     <div
       style={{
@@ -90,12 +102,12 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
         <h3 style={{ margin: "0 0 20px", fontSize: 18, fontWeight: 680 }}>
           {id ? "원두 수정" : "원두 추가"}
         </h3>
-        <form onSubmit={handleSubmit}>
+        <form key={fetched?.id ?? "new"} onSubmit={handleSubmit}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <Field label="원두명">
               <input
                 name="name"
-                defaultValue={initial?.name ?? ""}
+                defaultValue={fetched?.name ?? ""}
                 placeholder="예) 에티오피아 예가체프"
                 autoFocus
               />
@@ -105,7 +117,7 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
                 <Field label="원산지">
                   <input
                     name="origin"
-                    defaultValue={initial?.origin ?? ""}
+                    defaultValue={fetched?.origin ?? ""}
                     placeholder="예) 에티오피아"
                   />
                 </Field>
@@ -115,7 +127,7 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
                   <input
                     name="weight"
                     type="number"
-                    defaultValue={initial?.weight ?? ""}
+                    defaultValue={fetched?.weight ?? ""}
                     placeholder="200"
                   />
                 </Field>
@@ -128,7 +140,7 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
                   <input
                     name="price"
                     type="number"
-                    defaultValue={initial?.price ?? ""}
+                    defaultValue={fetched?.price ?? ""}
                     placeholder="16000"
                   />
                 </Field>
@@ -138,7 +150,7 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
                   <input
                     name="stock"
                     type="number"
-                    defaultValue={initial?.stock ?? ""}
+                    defaultValue={fetched?.stock ?? ""}
                     placeholder="0"
                   />
                 </Field>
@@ -147,11 +159,11 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
             <Field label="테이스팅 노트">
               <textarea
                 name="description"
-                defaultValue={initial?.description ?? ""}
+                defaultValue={fetched?.description ?? ""}
                 placeholder="예) 카라멜·견과·오렌지의 균형감"
               />
             </Field>
-            <Field label="상품 이미지">
+            <Field label="상품 이미지" hint={fetched?.img ? `현재 파일: ${fetched.img}` : undefined}>
               <input name="img" type="file" accept="image/*" />
             </Field>
           </div>

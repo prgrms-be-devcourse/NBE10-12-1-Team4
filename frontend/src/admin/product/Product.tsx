@@ -13,7 +13,7 @@ const ProductPage = () => {
   const fmt = (n: number, suffix = "") => n.toLocaleString("ko-KR") + suffix;
 
   const formModal = (type:string, id:number|null = null) => {
-    if (type === 'edit') setDetailId(id)
+    setDetailId(type === 'edit' ? id : null)
     setIsOpen(true)
   }
 
@@ -116,7 +116,7 @@ const ProductPage = () => {
                         size="sm"
                         className="btn-icon"
                         icon={<Icons.edit size={16} />}
-                        // onClick={() => setEditing(p)}
+                        onClick={() => formModal("edit", p.id)}
                         aria-label="수정"
                       />
                       <Button
@@ -139,7 +139,7 @@ const ProductPage = () => {
     </div>
     <ProductForm
       isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
+      onClose={() => { setIsOpen(false); setDetailId(null); }}
       id={detailId}
     />
     </>
