@@ -3,7 +3,7 @@ import type { Product, ProductFormProps } from "../../type/product";
 import { Button, Field } from "../components/ui";
 
 const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
-  const [fetched, setFetched] = useState<Product | null>(initial ?? { id: "p1",  name: "에티오피아 예가체프", origin: "에티오피아",    stock: 1000,  weight: 200, price: 18000, description: "자스민·베르가못·백도의 화사한 산미", active: false, color: "#a06a3c", img: "/beans/p1.png" });
+  const [fetched, setFetched] = useState<Product | null>(initial ?? null);
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,6 +59,8 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
       setFetched(initial ?? null);
       return;
     }
+    //FIXME api 연동시 dumpData 파트는 삭제해 주세요.
+    setFetched({ id: "p1",  name: "에티오피아 예가체프", origin: "에티오피아",    stock: 1000,  weight: 200, price: 18000, description: "자스민·베르가못·백도의 화사한 산미", active: false, color: "#a06a3c", img: "/beans/p1.png" })
     // apiFetch(`/api/v1/products/${id}`)
     //   .then((data) => setFetched(data.data))
     //   .catch((error) => alert(`${error.resultCode} : ${error.msg}`));
