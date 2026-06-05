@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Product, ProductFormProps } from "../../type/product";
+import type { Product, ProductFormProps } from "../../../type/product";
 import { Button, Field } from "../components/ui";
 
 const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {

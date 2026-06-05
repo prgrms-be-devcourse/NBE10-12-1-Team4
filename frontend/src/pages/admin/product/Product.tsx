@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Product } from "../../type/product";
+import type { Product } from "../../../type/product";
 import { Icons } from "../components/icons";
 import { PageHead } from "../components/PageHead";
 import { Badge, Button, Empty, Thumb } from "../components/ui";

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Icons } from "./icons";
-import type { OrderStatus, Product } from "../../type/product";
+import type { OrderStatus, Product } from "../../../type/product";
 
 type Tone = "gray" | "brown" | "green" | "amber" | "red" | "blue";
 
