@@ -1,13 +1,14 @@
 package com.backend.domain.order.service;
 
-import com.backend.order.dto.OrderItemResponse;
-import com.backend.order.dto.OrderResponse;
-import com.backend.order.entity.Order;
-import com.backend.order.entity.OrderItem;
+import com.backend.domain.order.dto.OrderItemResponse;
+import com.backend.domain.order.dto.OrderResponse;
+import com.backend.domain.order.entity.Order;
 import com.backend.domain.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -53,5 +54,17 @@ public class OrderService {
                 .status(order.getStatus().name())
                 .items(items)
                 .build();
+    }
+
+    // 주문 생성 시 batchDeadline 계산
+    public LocalDateTime calcBatchDeadline() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime todayCutoff = LocalDate.now().atTime(14, 0); // 오늘 14:00
+
+        if (now.isBefore(todayCutoff)) {
+            return todayCutoff;          // 14:00 이전이면 오늘 14:00
+        } else {
+            return todayCutoff.plusDays(1); // 14:00 이후면 내일 14:00
+        }
     }
 }
