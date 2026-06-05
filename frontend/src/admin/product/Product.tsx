@@ -19,9 +19,24 @@ const ProductPage = () => {
 
   const confirmDel = (id:number, onSuccess: () => void) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    // apiFetch(`/api/v1/posts/${id}?actorId=3`, {
+    // apiFetch(`/api/v1/products/${id}`, {
     //   method: "DELETE",
     // }).then(onSuccess);
+  }
+
+  const setActiveState = (id:number) => {
+    const formData = new FormData();
+    formData.append("active", "true");
+
+    // apiFetch(`/api/v1/products/${id}`, {
+      //   method: "PUT" ,
+      //   body: formData,
+      // }).then((data) => {
+      //   alert(data.msg);
+      //   onClose();
+      // }).catch((error) => {
+      //   alert(`${error.resultCode} : ${error.msg}`);
+      // });
   }
 
   return (
@@ -114,7 +129,7 @@ const ProductPage = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        // onClick={() => actions.toggleSoldOut(p.id)}
+                        onClick={() => setActiveState(p.id)}
                       >
                         {p.active ? "판매 재개" : "품절 처리"}
                       </Button>
