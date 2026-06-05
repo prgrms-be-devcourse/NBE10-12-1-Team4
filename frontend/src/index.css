@@ -3,12 +3,32 @@
    Radix Themes 위에 얹는 최소한의 전역 스타일
    =========================== */
 
+:root {
+  /* 타이포그래피 */
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, .rt-Heading {
+  font-family: var(--font-display) !important;
 }
 
 #root {
   min-height: 100svh;
+}
+
+/* 상품 카드 호버 애니메이션 */
+.product-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out !important;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
 }
