@@ -2,10 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import '@radix-ui/themes/styles.css'
 import './index.css'
-import Router from './routes/Router'
+import App from './App.tsx'
+import { CartProvider } from './store/CartContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Router />
+    <CartProvider>
+      <App />
+    </CartProvider>
   </StrictMode>,
 )
