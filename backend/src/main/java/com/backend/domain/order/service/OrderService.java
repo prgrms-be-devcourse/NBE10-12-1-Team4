@@ -3,16 +3,18 @@ package com.backend.domain.order.service;
 import com.backend.domain.order.dto.OrderItemResponse;
 import com.backend.domain.order.dto.OrderResponse;
 import com.backend.domain.order.entity.Order;
+import com.backend.domain.order.entity.OrderItem;
 import com.backend.domain.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -20,51 +22,41 @@ public class OrderService {
     // 이메일 기준 주문 조회
     public List<OrderResponse> getOrdersByEmail(String email) {
 
-        List<Order> orders = orderRepository.findByEmail(email);
+        List<Order> orders = orderRepository.findByEmailWithItems(email);
+
+        // 주문 없을 경우 (선택)
+        if (orders.isEmpty()) {
+            return List.of(); // 또는 예외 처리
+        }
 
         return orders.stream()
-                .map(this::toResponse)
-                .toList();
+                .map(this::toOrderResponse)
+                .collect(Collectors.toList());
     }
 
-    // 단일 주문 조회
-    public OrderResponse getOrder(Long orderId) {
-
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-
-        return toResponse(order);
-    }
-
-    // Entity → DTO 변환
-    private OrderResponse toResponse(Order order) {
+    // Order → OrderResponse 변환
+    private OrderResponse toOrderResponse(Order order) {
 
         List<OrderItemResponse> items = order.getOrderItems().stream()
-                .map(item -> OrderItemResponse.builder()
-                        .menuName(item.getMenuNameSnapshot())
-                        .price(item.getUnitPriceSnapshot())
-                        .quantity(item.getQuantity())
-                        .build())
-                .toList();
+                .map(this::toOrderItemResponse)
+                .collect(Collectors.toList());
 
         return OrderResponse.builder()
-                .orderNumber(order.getOrderNumber())
+                .orderNumber(order.getOrderNumber()) // Long 타입 맞춰야 함
                 .email(order.getEmail())
                 .totalAmount(order.getTotalAmount())
-                .status(order.getStatus().name())
+                .status(order.getStatus().name()) // Enum → String
                 .items(items)
                 .build();
     }
 
-    // 주문 생성 시 batchDeadline 계산
-    public LocalDateTime calcBatchDeadline() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime todayCutoff = LocalDate.now().atTime(14, 0); // 오늘 14:00
+    // OrderItem → OrderItemResponse 변환
+    private OrderItemResponse toOrderItemResponse(OrderItem item) {
 
-        if (now.isBefore(todayCutoff)) {
-            return todayCutoff;          // 14:00 이전이면 오늘 14:00
-        } else {
-            return todayCutoff.plusDays(1); // 14:00 이후면 내일 14:00
-        }
+        return OrderItemResponse.builder()
+                .menuName(item.getMenu().getName()) // Menu 엔티티 참조
+                .price(item.getPrice())
+                .quantity(item.getQuantity())
+                .build();
     }
 }
