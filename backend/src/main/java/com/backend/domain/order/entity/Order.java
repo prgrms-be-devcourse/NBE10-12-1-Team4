@@ -60,4 +60,8 @@ public class Order extends BaseEntity {
             orphanRemoval = true
     )
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    public void changeStatus(OrderStatus status) {
+        this.status = status;
+    }
 }
