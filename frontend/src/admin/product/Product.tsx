@@ -17,6 +17,13 @@ const ProductPage = () => {
     setIsOpen(true)
   }
 
+  const confirmDel = (id:number, onSuccess: () => void) => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
+    // apiFetch(`/api/v1/posts/${id}?actorId=3`, {
+    //   method: "DELETE",
+    // }).then(onSuccess);
+  }
+
   return (
     <>
     <div>
@@ -124,7 +131,7 @@ const ProductPage = () => {
                         size="sm"
                         className="btn-icon"
                         icon={<Icons.trash size={16} />}
-                        // onClick={() => setConfirmDel(p.id)}
+                        onClick={() => confirmDel(p.id)}
                         aria-label="삭제"
                         style={{ color: "var(--red)" }}
                       />
