@@ -31,3 +31,10 @@ export type MenuBarProps = {
   footer?: React.ReactNode;
   width?: number;
 };
+
+export type ProductFormProps = {
+  isOpen : boolean;
+  id: number | null;
+  onClose: () => void;
+  initial?: Product;
+}

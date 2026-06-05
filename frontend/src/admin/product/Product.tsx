@@ -4,17 +4,26 @@ import { Icons } from "../components/icons";
 import { PageHead } from "../components/PageHead";
 import { Badge, Button, Empty, Thumb } from "../components/ui";
 import { BEANS } from "../dumpData";
+import ProductForm from "./ProductForm";
 
 const ProductPage = () => {
   const [products, _setProducts] = useState<Product[] | null>(BEANS);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [detailId, setDetailId] = useState<number | null>(null);
   const fmt = (n: number, suffix = "") => n.toLocaleString("ko-KR") + suffix;
 
+  const formModal = (type:string, id:number|null = null) => {
+    if (type === 'edit') setDetailId(id)
+    setIsOpen(true)
+  }
+
   return (
+    <>
     <div>
       <PageHead
         title="원두 관리"
         sub="원두를 추가·수정하고 재고(품절) 상태를 관리하세요."
-        action={<Button icon={<Icons.plus size={17} />}>원두 추가</Button>}
+        action={<Button icon={<Icons.plus size={17} />} onClick={() => formModal("save")}>원두 추가</Button>}
       />
       <div className="card">
         {products === null ? (
@@ -128,6 +137,12 @@ const ProductPage = () => {
         )}
       </div>
     </div>
+    <ProductForm
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      id={detailId}
+    />
+    </>
   );
 };
 

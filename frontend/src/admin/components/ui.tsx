@@ -55,14 +55,7 @@ export function Field({
     </div>
   );
 }
-export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input className="input" {...props} />;
-}
-export function Textarea(
-  props: React.TextareaHTMLAttributes<HTMLTextAreaElement>
-) {
-  return <textarea className="textarea" {...props} />;
-}
+
 export function Select({
   children,
   ...rest
