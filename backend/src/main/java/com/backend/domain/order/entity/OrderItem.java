@@ -44,4 +44,9 @@ public class OrderItem {
     public void increaseQuantity(int amount) {
         this.quantity += amount;
     }
+
+    // Service 호환용 getter
+    public Integer getPrice() {
+        return this.unitPriceSnapshot;
+    }
 }
