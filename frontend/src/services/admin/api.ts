@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BEANS, ORDERS, ORDERS2 } from "../../pages/admin/dumpData";
+import { BEANS, ORDERS, ORDERS2, STATS } from "../../pages/admin/dumpData";
 
 let mockBeans = [...BEANS];
 
@@ -86,3 +86,21 @@ export const adminProductAPI = {
     return client.put(`/admin/products/${id}/state`, { active });
   }
 };
+
+// ─── 매출 통계 API ──────────────────────────────────────
+export const staticsAPI = {
+  getRange : async () => {
+    if (USE_MOCK) {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      return { data: STATS.days };
+    }
+    return client.get(`/admin/statistics/range`);
+  },
+  getBeans : async () => {
+    if (USE_MOCK) {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      return { data: STATS.beans };
+    }
+    return client.get(`/admin/statistics/bean`);
+  },
+}

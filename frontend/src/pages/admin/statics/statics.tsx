@@ -14,8 +14,9 @@ import {
 import { Card } from "@radix-ui/themes";
 import { Icons } from "../components/icons";
 import { STATS } from "../dumpData";
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { PageHead } from "../components/PageHead";
+import { staticsAPI } from "../../../services/admin/api";
 
 const manwon = (v: number) =>
   v >= 10000 ? `${v / 10000}만` : v.toLocaleString("ko-KR");
@@ -106,8 +107,19 @@ function ChartCard({
 }
 
 const StaticsPage = () => {
-  const a = STATS;
-  const topBean = STATS.beans[0];
+  const [rangeData, setRangeData] = useState([])
+  const [beanData, setBeanData] = useState([])
+  const [topBean, setTopBean] = useState(null)
+
+  useEffect(() => {
+    staticsAPI.getBeans().then((res) => {
+      setBeanData(res?.data ?? [])
+      setTopBean(res?.data?.[0] ?? null)
+    })
+    staticsAPI.getRange().then((res) => {
+      setRangeData(res?.data)
+    })
+  }, [])
 
   return (
     <div>
@@ -122,7 +134,7 @@ const StaticsPage = () => {
           children={
             <ResponsiveContainer width="100%" height={236}>
               <AreaChart
-                data={a.days}
+                data={rangeData}
                 margin={{ top: 6, right: 8, left: 4, bottom: 0 }}
               >
                 <defs>
@@ -175,10 +187,10 @@ const StaticsPage = () => {
           children={
             <ResponsiveContainer
               width="100%"
-              height={Math.max(220, a.beans.length * 38)}
+              height={Math.max(220, beanData?.length * 38)}
             >
               <BarChart
-                data={a.beans}
+                data={beanData}
                 layout="vertical"
                 margin={{ top: 0, right: 56, left: 8, bottom: 0 }}
                 barCategoryGap={10}
@@ -212,7 +224,7 @@ const StaticsPage = () => {
                   barSize={20}
                   isAnimationActive={false}
                 >
-                  {a.beans.map((b) => (
+                  {beanData.map((b) => (
                     <Cell key={b.name} fill={b.color || "#6b3e22"} />
                   ))}
                 </Bar>
