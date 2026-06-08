@@ -1,7 +1,10 @@
 import { Container, Heading, Text, Box, Card, Flex, TextField, Button } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
 
 export default function TrackOrderPage() {
+  const [email, setEmail] = useState('');
+
   // 다국어 스캐너(i18n) 우회를 위한 텍스트 목업
   const PAGE_TEXT = {
     title: 'Track Order',
@@ -9,6 +12,14 @@ export default function TrackOrderPage() {
     emailLabel: '주문자 이메일',
     emailPlaceholder: 'buyer@example.com',
     submitButton: '조회 링크 및 OTP 발송',
+  };
+
+  const handleSubmit = () => {
+    if (!email) {
+      alert('이메일을 입력해주세요.');
+      return;
+    }
+    alert('조회 요청이 완료되었습니다.');
   };
 
   return (
@@ -28,12 +39,14 @@ export default function TrackOrderPage() {
             placeholder={PAGE_TEXT.emailPlaceholder}
             size="3"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           >
             <TextField.Slot>
               <MagnifyingGlassIcon height="16" width="16" />
             </TextField.Slot>
           </TextField.Root>
-          <Button size="3" color="brown" variant="solid" style={{ cursor: 'pointer' }}>
+          <Button size="3" color="brown" variant="solid" onClick={handleSubmit} style={{ cursor: 'pointer' }}>
             {PAGE_TEXT.submitButton}
           </Button>
         </Flex>

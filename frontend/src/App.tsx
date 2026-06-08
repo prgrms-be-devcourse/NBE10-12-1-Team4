@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import StorePage from './pages/customer/StorePage';
 import TrackOrderPage from './pages/customer/TrackOrderPage';
+import OrderCompletePage from './pages/customer/OrderCompletePage';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               {/* 고객용 페이지 */}
               <Route path="/" element={<StorePage />} />
               <Route path="/track" element={<TrackOrderPage />} />
+              <Route path="/order-complete" element={<OrderCompletePage />} />
               
               {/* 관리자용 페이지 (담당 스코프 아님 - 목업 유지) */}
             </Routes>
