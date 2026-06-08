@@ -1,4 +1,4 @@
-package com.gridscircles.cafe.order.dto;
+package com.backend.domain.order.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -60,4 +60,20 @@ public class Order extends BaseEntity {
             orphanRemoval = true
     )
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    public void changeStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    // 주문 아이템 추가 (양방향 연관관계)
+    public void addOrderItem(OrderItem item) {
+        this.orderItems.add(item);
+    }
+
+    // 총 금액 계산
+    public void calculateTotalAmount() {
+        this.totalAmount = orderItems.stream()
+                .mapToInt(item -> item.getUnitPriceSnapshot() * item.getQuantity())
+                .sum();
+    }
 }
