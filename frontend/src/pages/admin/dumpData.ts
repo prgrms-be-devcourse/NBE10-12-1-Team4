@@ -29,6 +29,35 @@ export const ORDERITEMS : OrderItem[] = [
   {id:4, name: "디카페인 멕시코", price: 20000, stock:3}
 ]
 
+export const STATS = {
+  days: [
+    { label: "05/26", revenue: 45000 },
+    { label: "05/27", revenue: 63000 },
+    { label: "05/28", revenue: 38000 },
+    { label: "05/29", revenue: 71000 },
+    { label: "05/30", revenue: 52000 },
+    { label: "05/31", revenue: 89000 },
+    { label: "06/01", revenue: 104000 },
+    { label: "06/02", revenue: 67000 },
+    { label: "06/03", revenue: 91000 },
+    { label: "06/04", revenue: 58000 },
+    { label: "06/05", revenue: 76000 },
+    { label: "06/06", revenue: 43000 },
+    { label: "06/07", revenue: 112000 },
+    { label: "06/08", revenue: 85000 },
+  ],
+  beans: [
+    { name: "파나마 게이샤",       revenue: 320000, color: "#d98a4e" },
+    { name: "에티오피아 예가체프", revenue: 270000, color: "#a06a3c" },
+    { name: "케냐 AA",            revenue: 228000, color: "#7c4a2a" },
+    { name: "예멘 모카 마타리",    revenue: 208000, color: "#7d5a8c" },
+    { name: "과테말라 안티구아",   revenue: 187000, color: "#6b3e22" },
+    { name: "인도네시아 만델링",   revenue: 165000, color: "#43250f" },
+    { name: "콜롬비아 나리뇨",    revenue: 144000, color: "#8a5a34" },
+    { name: "에티오피아 시다모",   revenue: 122000, color: "#cf9a3c" },
+  ],
+};
+
 export const ORDERS : OrderDetail[] = [
   {id: 1, orderNumber: "no-1", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 23000, time: "2026-06-02 12:34:33", status: "접수"},
   {id: 2, orderNumber: "no-2", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 23000, time: "2026-06-02 00:34:33", status: "준비중"},

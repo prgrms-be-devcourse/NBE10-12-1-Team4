@@ -5,6 +5,7 @@ import { Icons } from "./components/icons";
 import MenuBar from "./components/MenuBar";
 import OrderPage from "./order/Order";
 import ProductPage from "./product/Product";
+import StaticsPage from "./statics/statics";
 import "./styles.css";
 
 const Admin = () => {
@@ -47,8 +48,7 @@ const Admin = () => {
         }}
       >
         {tab === "stats" ? (
-          <div>?</div>
-          // <StatsView />
+          <StaticsPage />
         ) : tab === "orders" ? (
           <OrderPage />
         ) : (
