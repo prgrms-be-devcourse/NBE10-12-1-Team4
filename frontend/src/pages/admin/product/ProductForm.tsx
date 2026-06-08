@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TextField } from '@radix-ui/themes';
-import type { Product, ProductFormProps } from "../../../type/product";
+import type { Product, ProductFormProps } from "../../../type/admin";
 import { Button, Field } from "../components/ui";
 
 const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {

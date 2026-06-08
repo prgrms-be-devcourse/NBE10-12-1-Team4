@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import type { MenuItem } from "../../type/product";
+import type { MenuItem } from "../../type/admin";
 import { Icons } from "./components/icons";
 import MenuBar from "./components/MenuBar";
+import OrderPage from "./order/Order";
 import ProductPage from "./product/Product";
 import "./styles.css";
 
@@ -49,8 +50,7 @@ const Admin = () => {
           <div>?</div>
           // <StatsView />
         ) : tab === "orders" ? (
-          <div>test</div>
-          // <OrdersView />
+          <OrderPage />
         ) : (
           <ProductPage />
         )}

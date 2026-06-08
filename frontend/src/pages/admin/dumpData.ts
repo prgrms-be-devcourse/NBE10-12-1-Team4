@@ -1,4 +1,4 @@
-import type { Product } from "../../type/product";
+import type { Product } from "../../type/admin";
 
 export const BEANS: Product[] = [
     { id: "p1",  name: "에티오피아 예가체프", origin: "에티오피아",    stock: 1000,  weight: 200, price: 18000, description: "자스민·베르가못·백도의 화사한 산미", active: false, color: "#a06a3c", img: "/beans/p1.png" },
