@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { adminProductAPI } from "../../../services/admin/api";
 import type { Product } from "../../../type/admin";
 import { Icons } from "../components/icons";
 import { PageHead } from "../components/PageHead";
@@ -7,7 +8,7 @@ import { BEANS } from "../dumpData";
 import ProductForm from "./ProductForm";
 
 const ProductPage = () => {
-  const [products, _setProducts] = useState<Product[] | null>(BEANS);
+  const [products, setProducts] = useState<Product[] | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [detailId, setDetailId] = useState<number | null>(null);
   const fmt = (n: number, suffix = "") => n.toLocaleString("ko-KR") + suffix;
@@ -17,27 +18,25 @@ const ProductPage = () => {
     setIsOpen(true)
   }
 
-  const confirmDel = (id:number, onSuccess: () => void) => {
+  const confirmDel = (id:number) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    // apiFetch(`/api/v1/products/${id}`, {
-    //   method: "DELETE",
-    // }).then(onSuccess);
+    adminProductAPI.delete(id).then((res) => {
+      alert("삭제되었습니다.")
+      setProducts(res?.data)
+    })
   }
 
-  const setActiveState = (id:number) => {
-    const formData = new FormData();
-    formData.append("active", "true");
-
-    // apiFetch(`/api/v1/products/${id}`, {
-      //   method: "PUT" ,
-      //   body: formData,
-      // }).then((data) => {
-      //   alert(data.msg);
-      //   onClose();
-      // }).catch((error) => {
-      //   alert(`${error.resultCode} : ${error.msg}`);
-      // });
+  const setActiveState = (id: number, active: boolean) => {
+    adminProductAPI.putState(id, !active).then((res) => {
+      setProducts(res?.data)
+    }).catch(() => alert("변경 실패했습니다."));
   }
+
+  useEffect(() => {
+    adminProductAPI.getAll().then((res) => {
+      setProducts(res?.data)
+    })
+  }, [])
 
   return (
     <>
@@ -125,7 +124,7 @@ const ProductPage = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setActiveState(p.id)}
+                        onClick={() => setActiveState(p.id, p.active ?? false)}
                       >
                         {p.active ? "판매 재개" : "품절 처리"}
                       </Button>
