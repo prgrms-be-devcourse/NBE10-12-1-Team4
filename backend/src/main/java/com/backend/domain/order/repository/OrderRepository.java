@@ -32,4 +32,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     // 이메일 기준 최신순 조회
     List<Order> findByEmailOrderByCreatedAtDesc(String email);
+
+    // 특정 기간 주문 조회 (매출 통계용)
+    List<Order> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 }
