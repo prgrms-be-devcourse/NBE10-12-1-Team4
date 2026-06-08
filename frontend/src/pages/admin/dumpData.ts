@@ -68,3 +68,14 @@ export const ORDERS : OrderDetail[] = [
   {id: 7, orderNumber: "no-7", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 25000, time: "2026-06-10 14:34:33", status: "취소"},
   {id: 8, orderNumber: "no-8", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 27000, time: "2026-06-03 14:34:33", status: "완료"},
 ]
+
+export const ORDERS2 : OrderDetail[] = [
+  {id: 1, orderNumber: "no-1", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 23000, time: "2026-06-02 12:34:33", status: "준비중"},
+  {id: 2, orderNumber: "no-2", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 23000, time: "2026-06-02 00:34:33", status: "준비중"},
+  {id: 3, orderNumber: "no-3", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 33000, time: "2026-06-08 14:34:33", status: "접수"},
+  {id: 4, orderNumber: "no-4", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 43000, time: "2026-06-08 04:34:33", status: "접수"},
+  {id: 5, orderNumber: "no-5", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 53000, time: "2026-06-02 14:34:33", status: "접수"},
+  {id: 6, orderNumber: "no-6", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 13000, time: "2026-06-02 10:34:33", status: "접수"},
+  {id: 7, orderNumber: "no-7", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 25000, time: "2026-06-10 14:34:33", status: "취소"},
+  {id: 8, orderNumber: "no-8", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 27000, time: "2026-06-03 14:34:33", status: "완료"},
+]

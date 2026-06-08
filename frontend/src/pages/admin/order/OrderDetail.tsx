@@ -8,6 +8,7 @@ import {
 } from "@radix-ui/themes";
 import type { OrderDetail, OrderDetailProps } from "../../../type/admin";
 import { ORDERS } from "../dumpData";
+import { orderAPI } from "../../../services/admin/api";
 
 const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
   const [order, setOrder] = useState<OrderDetail | null>(null);
@@ -22,7 +23,9 @@ const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    setOrder(ORDERS.find(o => o.id === id) ?? null);
+    orderAPI.getOrderDetail(id).then((res) => {
+      setOrder(res?.data)
+    })
   }, [id]);
 
   if (!isOpen) return null;

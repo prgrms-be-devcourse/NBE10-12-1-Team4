@@ -7,10 +7,10 @@ import { Icons } from "../components/icons";
 import { PageHead } from "../components/PageHead";
 import { Empty, StatusBadge } from "../components/ui";
 import { SearchInput } from "../components/SearchInput";
-import { ORDERS } from "../dumpData";
+import { orderAPI } from "../../../services/admin/api";
 
 const OrderPage = () => {
-  const [orders, _setOrders] = useState<Order[] | null>(ORDERS);
+  const [orders, setOrders] = useState<Order[] | null>(null);
   const [q, setQ] = useState("");
   const [detail, setDetail] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +23,16 @@ const OrderPage = () => {
     setIsOpen(false)
   }
 
-  useEffect(() => {
+  const changeState = (id: number, status: string) => {
+    orderAPI.putState(id, status).then((res) => {
+      setOrders(res?.data)
+    })
+  }
 
+  useEffect(() => {
+    orderAPI.getAll().then((res) => {
+      setOrders(res?.data)
+    })
   }, [])
 
   return (
@@ -101,9 +109,7 @@ const OrderPage = () => {
                         display: "inline-block",
                       }}
                       value={o.status}
-                      // onChange={(e) =>
-                      //   actions.setOrderStatus(o.id, e.target.value)
-                      // }
+                      onChange={(e) => changeState(o.id, e.target.value)}
                     >
                       {STATUSES?.map((st) => (
                         <option key={st} value={st}>
