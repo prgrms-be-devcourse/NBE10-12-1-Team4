@@ -5,6 +5,7 @@ import Footer from './components/layout/Footer';
 import StorePage from './pages/customer/StorePage';
 import TrackOrderPage from './pages/customer/TrackOrderPage';
 import Admin from './pages/admin/Admin';
+import Login from './pages/admin/login/login';
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
             <Route path="/track" element={<TrackOrderPage />} />
 
             {/* 관리자용 페이지 (담당 스코프 아님 - 목업 유지) */}
+            <Route path="/admin_login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
         </Box>
