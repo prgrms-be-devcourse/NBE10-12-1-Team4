@@ -6,19 +6,20 @@ import lombok.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access=AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-@Table(name="admins")
-public class Admin extendsBaseEntity {
+@Table(name = "admins")
+public class Admin extends BaseEntity
+{
 
     @Id
-    @GeneratedValue(strategy=GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(nullable=false,unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String passwordHash;
 }
