@@ -1,4 +1,4 @@
-import type { Product } from "../../type/admin";
+import type { OrderDetail, OrderItem, Product } from "../../type/admin";
 
 export const BEANS: Product[] = [
     { id: "p1",  name: "에티오피아 예가체프", origin: "에티오피아",    stock: 1000,  weight: 200, price: 18000, description: "자스민·베르가못·백도의 화사한 산미", active: false, color: "#a06a3c", img: "/beans/p1.png" },
@@ -21,3 +21,21 @@ export const BEANS: Product[] = [
     { id: "p18", name: "에티오피아 시다모",   origin: "에티오피아",    stock: 1000,  weight: 200, price: 17500, description: "블루베리·레몬·꽃향의 화려함",         active: false, color: "#cf9a3c", img: "/beans/p18.png" },
     { id: "p19", name: "콜롬비아 후일라",     origin: "콜롬비아",      stock: 1000,  weight: 200, price: 16500, description: "청사과·캐러멜·균형 잡힌 단맛",       active: false, color: "#3f7d72", img: "/beans/p19.png" },
   ];
+
+export const ORDERITEMS : OrderItem[] = [
+  {id:1, name: "에티오피아 예가체프 G1", price: 18000, stock:1},
+  {id:2, name: "콜롬비아 수프리모", price: 16000, stock:2},
+  {id:3, name: "과테말라 안티구아", price: 10000, stock:1},
+  {id:4, name: "디카페인 멕시코", price: 20000, stock:3}
+]
+
+export const ORDERS : OrderDetail[] = [
+  {id: 1, orderNumber: "no-1", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 23000, time: "2026-06-02 12:34:33", status: "접수"},
+  {id: 2, orderNumber: "no-2", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 23000, time: "2026-06-02 00:34:33", status: "준비중"},
+  {id: 3, orderNumber: "no-3", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 33000, time: "2026-06-08 14:34:33", status: "접수"},
+  {id: 4, orderNumber: "no-4", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 43000, time: "2026-06-08 04:34:33", status: "접수"},
+  {id: 5, orderNumber: "no-5", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 53000, time: "2026-06-02 14:34:33", status: "접수"},
+  {id: 6, orderNumber: "no-6", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 13000, time: "2026-06-02 10:34:33", status: "접수"},
+  {id: 7, orderNumber: "no-7", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 25000, time: "2026-06-10 14:34:33", status: "취소"},
+  {id: 8, orderNumber: "no-8", email: "test@test.com", address: "서울특별시 **구 **동 123-4", phone: "010-0000-0000", orderItems: ORDERITEMS, price: 27000, time: "2026-06-03 14:34:33", status: "완료"},
+]
