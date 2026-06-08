@@ -15,6 +15,7 @@ export default function CartDrawer() {
   // 주문 폼 상태
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [phone, setPhone] = useState('');
 
   // 장바구니에서 상품 단가/이름을 매핑하기 위해 전체 상품 목록을 가져옴
@@ -36,14 +37,20 @@ export default function CartDrawer() {
       alert('장바구니가 비어있습니다.');
       return;
     }
-    if (!email || !address || !phone) {
-      alert('이메일, 배송지 주소, 연락처를 모두 입력해주세요.');
+    if (!email || !address || !zipcode || !phone) {
+      alert('이메일, 배송지 주소, 우편번호, 연락처를 모두 입력해주세요.');
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert('올바른 이메일 형식을 입력해주세요.');
+      return;
+    }
+
+    const zipcodeRegex = /^\d{5}$/;
+    if (!zipcodeRegex.test(zipcode)) {
+      alert('우편번호는 5자리의 숫자로 입력해주세요.');
       return;
     }
 
@@ -55,7 +62,7 @@ export default function CartDrawer() {
 
     setLoading(true);
     try {
-      const res = await orderAPI.create({ email, address, phone, items });
+      const res = await orderAPI.create({ email, address, zipcode, phone, items });
       const { merged, message } = res.data;
 
       clear(); // 결제 성공 시 장바구니 비우기
@@ -75,6 +82,7 @@ export default function CartDrawer() {
           orderDetails: {
             email,
             address,
+            zipcode,
             phone,
             items: enrichedItems,
             totalPrice,
@@ -154,6 +162,10 @@ export default function CartDrawer() {
           <Box>
             <Text as="div" size="2" mb="1" weight="bold">배송지 주소</Text>
             <TextField.Root placeholder="서울시 강남구 테헤란로..." value={address} onChange={(e) => setAddress(e.target.value)} />
+          </Box>
+          <Box>
+            <Text as="div" size="2" mb="1" weight="bold">우편번호</Text>
+            <TextField.Root placeholder="12345" value={zipcode} onChange={(e) => setZipcode(e.target.value)} maxLength={5} />
           </Box>
           <Box>
             <Text as="div" size="2" mb="1" weight="bold">연락처</Text>
