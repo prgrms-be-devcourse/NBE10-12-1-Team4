@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Product, ProductFormProps } from "../../../type/product";
+import { TextField } from "@radix-ui/themes";
+import type { Product, ProductFormProps } from "../../../type/admin";
+import { adminProductAPI } from "../../../services/admin/api";
 import { Button, Field } from "../components/ui";
 
 const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
@@ -34,24 +36,25 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
       return;
     }
 
-    // const formData = new FormData();
-    // formData.append("name", name.value);
-    // formData.append("origin", origin.value);
-    // formData.append("weight", weight.value);
-    // formData.append("price", price.value);
-    // formData.append("stock", stock.value);
-    // formData.append("description", description.value);
-    // if (imgFile) formData.append("img", imgFile);
-    //
-    // apiFetch(`/api/v1/products${id ? `/${id}` : ""}`, {
-    //   method: id ? "PUT" : "POST",
-    //   body: formData,
-    // }).then((data) => {
-    //   alert(data.msg);
-    //   onClose();
-    // }).catch((error) => {
-    //   alert(`${error.resultCode} : ${error.msg}`);
-    // });
+    const formData = new FormData();
+    formData.append("name", name.value);
+    formData.append("origin", origin.value);
+    formData.append("weight", weight.value);
+    formData.append("price", price.value);
+    formData.append("stock", stock.value);
+    formData.append("description", description.value);
+    if (imgFile) formData.append("img", imgFile);
+
+    const api = id
+      ? adminProductAPI.update(id, formData)
+      : adminProductAPI.create(formData);
+
+    api
+      .then(() => {
+        alert("저장되었습니다.");
+        onClose();
+      })
+      .catch(() => alert("저장에 실패했습니다."));
   };
 
   useEffect(() => {
@@ -59,11 +62,9 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
       setFetched(initial ?? null);
       return;
     }
-    //FIXME api 연동시 dumpData 파트는 삭제해 주세요.
-    setFetched({ id: "p1",  name: "에티오피아 예가체프", origin: "에티오피아",    stock: 1000,  weight: 200, price: 18000, description: "자스민·베르가못·백도의 화사한 산미", active: false, color: "#a06a3c", img: "/beans/p1.png" })
-    // apiFetch(`/api/v1/products/${id}`)
-    //   .then((data) => setFetched(data.data))
-    //   .catch((error) => alert(`${error.resultCode} : ${error.msg}`));
+    adminProductAPI.getDetail(id).then((res) => {
+      setFetched(res?.data);
+    });
   }, [id, isOpen]);
 
   useEffect(() => {
@@ -106,68 +107,91 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
         </h3>
         <form key={fetched?.id ?? "new"} onSubmit={handleSubmit}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <Field label="원두명">
-              <input
-                name="name"
-                defaultValue={fetched?.name ?? ""}
-                placeholder="예) 에티오피아 예가체프"
-                autoFocus
-              />
-            </Field>
+            <Field
+              label="원두명"
+              children={
+                <TextField.Root
+                  name="name"
+                  defaultValue={fetched?.name ?? ""}
+                  placeholder="예) 에티오피아 예가체프"
+                  autoFocus
+                />
+              }
+            />
             <div style={{ display: "flex", gap: 12 }}>
               <div style={{ flex: 1 }}>
-                <Field label="원산지">
-                  <input
-                    name="origin"
-                    defaultValue={fetched?.origin ?? ""}
-                    placeholder="예) 에티오피아"
-                  />
-                </Field>
+                <Field
+                  label="원산지"
+                  children={
+                    <TextField.Root
+                      name="origin"
+                      defaultValue={fetched?.origin ?? ""}
+                      placeholder="예) 에티오피아"
+                    />
+                  }
+                />
               </div>
               <div style={{ width: 110 }}>
-                <Field label="중량 (g)">
-                  <input
-                    name="weight"
-                    type="number"
-                    defaultValue={fetched?.weight ?? ""}
-                    placeholder="200"
-                  />
-                </Field>
+                <Field
+                  label="중량 (g)"
+                  children={
+                    <TextField.Root
+                      name="weight"
+                      type="number"
+                      defaultValue={fetched?.weight ?? ""}
+                      placeholder="200"
+                    />
+                  }
+                />
               </div>
             </div>
 
             <div style={{ display: "flex", gap: 12 }}>
               <div style={{ flex: 1 }}>
-                <Field label="가격 (원)">
-                  <input
-                    name="price"
-                    type="number"
-                    defaultValue={fetched?.price ?? ""}
-                    placeholder="16000"
-                  />
-                </Field>
+                <Field
+                  label="가격 (원)"
+                  children={
+                    <TextField.Root
+                      name="price"
+                      type="number"
+                      defaultValue={fetched?.price ?? ""}
+                      placeholder="16000"
+                    />
+                  }
+                />
               </div>
               <div style={{ width: 110 }}>
-                <Field label="재고 (개)">
-                  <input
-                    name="stock"
-                    type="number"
-                    defaultValue={fetched?.stock ?? ""}
-                    placeholder="0"
-                  />
-                </Field>
+                <Field
+                  label="재고 (개)"
+                  children={
+                    <TextField.Root
+                      name="stock"
+                      type="number"
+                      defaultValue={fetched?.stock ?? ""}
+                      placeholder="0"
+                    />
+                  }
+                />
               </div>
             </div>
-            <Field label="테이스팅 노트">
-              <textarea
-                name="description"
-                defaultValue={fetched?.description ?? ""}
-                placeholder="예) 카라멜·견과·오렌지의 균형감"
-              />
-            </Field>
-            <Field label="상품 이미지" hint={fetched?.img ? `현재 파일: ${fetched.img}` : undefined}>
-              <input name="img" type="file" accept="image/*" />
-            </Field>
+            <Field
+              label="테이스팅 노트"
+              children={
+                <TextField.Root
+                  name="description"
+                  defaultValue={fetched?.description ?? ""}
+                  placeholder="예) 카라멜·견과·오렌지의 균형감"
+                  size="3"
+                  type="email"
+                />
+              }
+            />
+
+            <Field
+              label="상품 이미지"
+              hint={fetched?.img ? `현재 파일: ${fetched.img}` : undefined}
+              children={<input name="img" type="file" accept="image/*" />}
+            />
           </div>
           <div
             style={{
