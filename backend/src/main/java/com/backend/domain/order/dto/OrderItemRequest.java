@@ -1,9 +1,9 @@
-package com.backend.order.dto;
+package com.backend.domain.order.dto;
 
 import lombok.Getter;
 
 @Getter
 public class OrderItemRequest {
-    private Long menuId;
+    private String menuId;
     private Integer quantity;
 }

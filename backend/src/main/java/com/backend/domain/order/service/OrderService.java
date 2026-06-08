@@ -1,10 +1,11 @@
-package com.backend.order.service;
+package com.backend.domain.order.service;
 
-import com.backend.order.dto.*;
-import com.backend.order.entity.*;
-import com.backend.order.repository.OrderRepository;
-import com.backend.menu.entity.Menu;
-import com.backend.menu.repository.MenuRepository;
+import com.backend.domain.order.dto.*;
+import com.backend.domain.order.entity.*;
+import com.backend.domain.order.repository.OrderRepository;
+import com.backend.domain.menu.entity.Menu;
+import com.backend.domain.menu.repository.MenuRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +47,7 @@ public class OrderService {
     @Transactional
     public void createOrder(OrderRequest request) {
 
-        // batchDeadline 계산 (김민준님 코드)
+        // batchDeadline 계산
         LocalDateTime batchDeadline = calcBatchDeadline();
 
         // 기존 주문 조회
@@ -60,7 +61,7 @@ public class OrderService {
                 Order.builder()
                         .email(request.getEmail())
                         .batchDeadline(batchDeadline)
-                        .status(OrderStatus.CREATED)
+                        .status(OrderStatus.PENDING) // 변경 (CREATED → PENDING)
                         .build()
         );
 
@@ -73,8 +74,9 @@ public class OrderService {
             OrderItem orderItem = OrderItem.builder()
                     .order(order)
                     .menu(menu)
+                    .menuNameSnapshot(menu.getName())
+                    .unitPriceSnapshot(menu.getPrice())
                     .quantity(itemRequest.getQuantity())
-                    .price(menu.getPrice())
                     .build();
 
             order.addOrderItem(orderItem);
@@ -86,7 +88,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    // batchDeadline 계산 (김민준님 코드 유지)
+    // batchDeadline 계산
     public LocalDateTime calcBatchDeadline() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime todayCutoff = LocalDate.now().atTime(14, 0);
@@ -98,7 +100,7 @@ public class OrderService {
         }
     }
 
-    // Entity → DTO 변환 (김민준님 방식 유지 + 구조 통일)
+    // Entity → DTO 변환
     private OrderResponse toResponse(Order order) {
 
         List<OrderItemResponse> items = order.getOrderItems().stream()
@@ -110,7 +112,7 @@ public class OrderService {
                 .toList();
 
         return OrderResponse.builder()
-                .orderNumber(order.getId()) // orderNumber 필드 맞춰서 수정 가능
+                .orderNumber(order.getOrderNumber())
                 .email(order.getEmail())
                 .totalAmount(order.getTotalAmount())
                 .status(order.getStatus().name())

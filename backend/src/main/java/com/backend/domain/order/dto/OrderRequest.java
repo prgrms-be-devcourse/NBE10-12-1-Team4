@@ -1,4 +1,4 @@
-package com.backend.order.dto;
+package com.backend.domain.order.dto;
 
 import lombok.Getter;
 import java.util.List;
