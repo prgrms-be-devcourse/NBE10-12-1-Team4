@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { MenuBarProps, MenuItem } from "../../../type/product";
+import type { MenuBarProps, MenuItem } from "../../../type/admin";
 
 /**
  * MenuBar — vertical navigation rail (the admin "메뉴 바").
