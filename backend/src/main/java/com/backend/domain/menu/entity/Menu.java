@@ -19,6 +19,9 @@ public class Menu extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String origin; //원산지
+
     @Column(columnDefinition = "TEXT")
     private String description;
 
@@ -29,5 +32,14 @@ public class Menu extends BaseEntity {
     private Integer stock;
 
     @Column(nullable = false)
+    private Integer weight;
+
+    @Column(nullable = false)
     private boolean active;
+
+    @Column(nullable = false, length = 500)
+    private String imageUrl;
+
+    @Column(nullable = false, length = 500)
+    private String imgName;
 }
