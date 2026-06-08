@@ -116,7 +116,7 @@ input, textarea, select { font-family: inherit; }
 .badge-blue { background: var(--blue-soft); color: var(--blue); }
 
 /* ============ Card ============ */
-.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
 
 /* ============ Dialog ============ */
 .overlay {

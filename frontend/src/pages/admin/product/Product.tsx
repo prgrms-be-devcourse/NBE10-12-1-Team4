@@ -115,13 +115,9 @@ const ProductPage = () => {
                   </td>
                   <td>
                     {p.active ? (
-                      <Badge tone="red" dot>
-                        품절
-                      </Badge>
+                      <Badge tone="red" dot children="품절"/>
                     ) : (
-                      <Badge tone="green" dot>
-                        판매중
-                      </Badge>
+                      <Badge tone="green" dot children="판매중"/>
                     )}
                   </td>
                   <td style={{ textAlign: "right" }}>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { TextField } from '@radix-ui/themes';
 import type { Product, ProductFormProps } from "../../../type/product";
 import { Button, Field } from "../components/ui";
 
@@ -106,68 +107,69 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
         </h3>
         <form key={fetched?.id ?? "new"} onSubmit={handleSubmit}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <Field label="원두명">
-              <input
+            <Field label="원두명" children={<TextField.Root
                 name="name"
                 defaultValue={fetched?.name ?? ""}
                 placeholder="예) 에티오피아 예가체프"
                 autoFocus
-              />
-            </Field>
+              />}/>
             <div style={{ display: "flex", gap: 12 }}>
               <div style={{ flex: 1 }}>
-                <Field label="원산지">
-                  <input
-                    name="origin"
-                    defaultValue={fetched?.origin ?? ""}
-                    placeholder="예) 에티오피아"
-                  />
-                </Field>
+                <Field label="원산지" children={
+                  <TextField.Root
+                  name="origin"
+                  defaultValue={fetched?.origin ?? ""}
+                  placeholder="예) 에티오피아"
+                />
+                }/>
               </div>
               <div style={{ width: 110 }}>
-                <Field label="중량 (g)">
-                  <input
-                    name="weight"
-                    type="number"
-                    defaultValue={fetched?.weight ?? ""}
-                    placeholder="200"
-                  />
-                </Field>
+                <Field label="중량 (g)" children={
+                  <TextField.Root
+                  name="weight"
+                  type="number"
+                  defaultValue={fetched?.weight ?? ""}
+                  placeholder="200"
+                />
+                }/>
               </div>
             </div>
 
             <div style={{ display: "flex", gap: 12 }}>
               <div style={{ flex: 1 }}>
-                <Field label="가격 (원)">
-                  <input
-                    name="price"
-                    type="number"
-                    defaultValue={fetched?.price ?? ""}
-                    placeholder="16000"
-                  />
-                </Field>
+                <Field label="가격 (원)" children={
+                  <TextField.Root
+                  name="price"
+                  type="number"
+                  defaultValue={fetched?.price ?? ""}
+                  placeholder="16000"
+                />
+                }/>
               </div>
               <div style={{ width: 110 }}>
-                <Field label="재고 (개)">
-                  <input
-                    name="stock"
-                    type="number"
-                    defaultValue={fetched?.stock ?? ""}
-                    placeholder="0"
-                  />
-                </Field>
+                <Field label="재고 (개)" children={
+                  <TextField.Root
+                  name="stock"
+                  type="number"
+                  defaultValue={fetched?.stock ?? ""}
+                  placeholder="0"
+                />
+                }/>
               </div>
             </div>
-            <Field label="테이스팅 노트">
-              <textarea
+            <Field label="테이스팅 노트" children={
+                <TextField.Root
                 name="description"
                 defaultValue={fetched?.description ?? ""}
                 placeholder="예) 카라멜·견과·오렌지의 균형감"
+                size="3"
+                type="email"
               />
-            </Field>
-            <Field label="상품 이미지" hint={fetched?.img ? `현재 파일: ${fetched.img}` : undefined}>
+            } />
+
+            <Field label="상품 이미지" hint={fetched?.img ? `현재 파일: ${fetched.img}` : undefined} children={
               <input name="img" type="file" accept="image/*" />
-            </Field>
+            }/>
           </div>
           <div
             style={{
