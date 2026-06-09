@@ -17,7 +17,7 @@ export const orderAPI = {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: ORDERS };
     }
-    return client.get("/admin/orders");
+    return client.get("/orders");
   },
   putState: async (id: number, state: string) => {
     if (USE_MOCK) {
@@ -89,12 +89,12 @@ export const adminProductAPI = {
 
 // ─── 매출 통계 API ──────────────────────────────────────
 export const staticsAPI = {
-  getRange : async () => {
+  getRange : async (startDate: string, endDate: string) => {
     if (USE_MOCK) {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: STATS.days };
     }
-    return client.get(`/admin/statistics/range`);
+    return client.get(`/admin/statistics/range`, { params: { startDate, endDate } });
   },
   getBeans : async () => {
     if (USE_MOCK) {
