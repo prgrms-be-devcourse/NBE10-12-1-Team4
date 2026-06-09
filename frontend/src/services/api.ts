@@ -27,13 +27,18 @@ export const productAPI = {
 // ─── 주문 API (고객) ───────────────────────────────
 export const orderAPI = {
   create: async (orderData: any) => {
-    if (USE_MOCK) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      // buyer@example.com인 경우 합배송 상황 시뮬레이션
-      const isMerge = orderData.email === 'buyer@example.com';
-      return { data: isMerge ? mockOrderMergeResponse : mockOrderCreateResponse };
-    }
-    return client.post('/orders', orderData);
+    // 프론트의 productId를 백엔드의 menuId로 변환
+    const mappedItems = orderData.items.map((item: any) => ({
+      menuId: item.productId,
+      quantity: item.quantity
+    }));
+
+    const payload = {
+      ...orderData,
+      items: mappedItems
+    };
+
+    return client.post('/guest/orders', payload);
   },
 
   // 주문 조회 링크 발송 요청
@@ -62,5 +67,10 @@ export const orderAPI = {
       return { data: mockOrderDetail };
     }
     return client.post('/orders/track/detail', { sessionToken });
+  },
+
+  // 이메일 기반 주문 전체 내역 조회 (Guest)
+  getOrdersByEmail: async (email: string) => {
+    return client.get(`/guest/orders?email=${email}`);
   },
 };

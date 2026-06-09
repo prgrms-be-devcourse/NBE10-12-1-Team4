@@ -62,8 +62,7 @@ export default function CartDrawer() {
 
     setLoading(true);
     try {
-      const res = await orderAPI.create({ email, address, zipcode, phone, items });
-      const { merged, message } = res.data;
+      await orderAPI.create({ email, address, zipcode, phone, items });
 
       clear(); // 결제 성공 시 장바구니 비우기
 
@@ -86,8 +85,8 @@ export default function CartDrawer() {
             phone,
             items: enrichedItems,
             totalPrice,
-            merged,
-            message
+            merged: false,
+            message: '주문이 성공적으로 접수되었습니다!'
           }
         }
       });

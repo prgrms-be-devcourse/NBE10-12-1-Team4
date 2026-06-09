@@ -71,7 +71,11 @@ public class OrderService {
         Order order = existingOrder.orElseGet(() ->
                 Order.builder()
                         .email(request.getEmail())
+                        .address(request.getAddress())
+                        .zipcode(request.getZipcode())
+                        .phone(request.getPhone())
                         .batchDeadline(batchDeadline)
+                        .deliveryDate(batchDeadline.toLocalDate().plusDays(1))
                         .status(OrderStatus.PENDING) // 변경 (CREATED → PENDING)
                         .build()
         );
@@ -125,8 +129,13 @@ public class OrderService {
         return OrderResponse.builder()
                 .orderNumber(order.getOrderNumber())
                 .email(order.getEmail())
+                .address(order.getAddress())
+                .zipcode(order.getZipcode())
+                .phone(order.getPhone())
+                .deliveryDate(order.getDeliveryDate())
                 .totalAmount(order.getTotalAmount())
                 .status(order.getStatus().name())
+                .createdAt(order.getCreatedAt())
                 .items(items)
                 .build();
     }
