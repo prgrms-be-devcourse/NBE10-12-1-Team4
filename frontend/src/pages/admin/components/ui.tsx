@@ -115,7 +115,7 @@ export function Thumb({
     >
       {product.img ? (
         <img
-          src={product.img}
+          src={`http://localhost:8080${product?.img}`}
           alt={product.name}
           loading="lazy"
           style={{
@@ -125,6 +125,9 @@ export function Thumb({
             height: "100%",
             objectFit: "cover",
             zIndex: 2,
+          }}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).style.display = "none";
           }}
         />
       ) : (

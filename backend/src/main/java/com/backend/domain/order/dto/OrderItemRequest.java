@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class OrderItemRequest {
-    private String menuId;
+    private Integer menuId;
     private Integer quantity;
 }

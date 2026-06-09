@@ -36,6 +36,42 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
       return;
     }
 
+    const weightNum = Number(weight.value);
+    if (weight.value.trim() === "" || isNaN(weightNum)) {
+      alert("중량은 숫자로 입력해주세요.");
+      weight.focus();
+      return;
+    }
+    if (weightNum < 0) {
+      alert("중량은 0 이상으로 입력해주세요.");
+      weight.focus();
+      return;
+    }
+
+    const priceNum = Number(price.value);
+    if (price.value.trim() === "" || isNaN(priceNum)) {
+      alert("가격은 숫자로 입력해주세요.");
+      price.focus();
+      return;
+    }
+    if (priceNum < 0) {
+      alert("가격은 0 이상으로 입력해주세요.");
+      price.focus();
+      return;
+    }
+
+    const stockNum = Number(stock.value);
+    if (stock.value.trim() === "" || isNaN(stockNum)) {
+      alert("재고는 숫자로 입력해주세요.");
+      stock.focus();
+      return;
+    }
+    if (stockNum < 0) {
+      alert("재고는 0 이상으로 입력해주세요.");
+      stock.focus();
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name.value);
     formData.append("origin", origin.value);
@@ -182,7 +218,6 @@ const ProductForm = ({ isOpen, id, onClose, initial }: ProductFormProps) => {
                   defaultValue={fetched?.description ?? ""}
                   placeholder="예) 카라멜·견과·오렌지의 균형감"
                   size="3"
-                  type="email"
                 />
               }
             />
