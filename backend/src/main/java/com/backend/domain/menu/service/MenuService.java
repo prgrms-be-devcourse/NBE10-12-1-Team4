@@ -118,7 +118,7 @@ public class MenuService {
 	public Menu activeModify(int id, MenuActiveRequest request) {
 		Menu menu = menuRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("메뉴를 찾을 수 없습니다."));
-		menu.setActive(request.getActive());
+		menu.setActive(request.isActive());
 		return menu;
 	}
 
