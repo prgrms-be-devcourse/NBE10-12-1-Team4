@@ -34,7 +34,8 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     @Query("SELECT o FROM Order o " +
             "JOIN FETCH o.orderItems oi " +
             "JOIN FETCH oi.menu " +
-            "WHERE o.email = :email")
+            "WHERE o.email = :email " +
+            "ORDER BY o.createdAt DESC")
     List<Order> findByEmailWithItems(@Param("email") String email);
 
     Optional<Order> findByEmailAndBatchDeadline(String email, LocalDateTime batchDeadline);

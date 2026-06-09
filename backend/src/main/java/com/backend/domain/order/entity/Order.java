@@ -35,6 +35,9 @@ public class Order extends BaseEntity {
     private String email;
 
     @Column(nullable = false)
+    private String phone;
+
+    @Column(nullable = false)
     private String address;
 
     @Column(nullable = false)
