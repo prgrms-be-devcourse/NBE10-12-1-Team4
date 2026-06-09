@@ -22,6 +22,17 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MenuRepository menuRepository;
 
+    // 주문 다건 조회(email 별로 묶지 않음)
+    @Transactional(readOnly = true)
+    public List<OrderResponse> getAll() {
+
+        List<Order> orders = orderRepository.findAll();
+
+        return orders.stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
     // 이메일 기준 주문 조회
     @Transactional(readOnly = true)
     public List<OrderResponse> getOrdersByEmail(String email) {
