@@ -44,14 +44,13 @@ public class Menu extends BaseEntity {
     private String imgName;
 
     public void update(String name, String origin, Integer price, Integer stock, Integer weight,
-                       String description, boolean active, String imageUrl, String imgName) {
+                       String description, String imageUrl, String imgName) {
         this.name = name;
         this.origin = origin;
         this.price = price;
         this.stock = stock;
         this.weight = weight;
         this.description = description;
-        this.active = active;
         this.imageUrl = imageUrl;
         this.imgName = imgName;
     }

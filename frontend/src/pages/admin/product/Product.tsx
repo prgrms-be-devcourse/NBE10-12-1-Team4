@@ -20,15 +20,15 @@ const ProductPage = () => {
 
   const confirmDel = (id:number) => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
-    adminProductAPI.delete(id).then((res) => {
+    adminProductAPI.delete(id).then(() => {
       alert("삭제되었습니다.")
-      setProducts(res?.data)
+      getInit();
     })
   }
 
   const setActiveState = (id: number, active: boolean) => {
-    adminProductAPI.putState(id, !active).then((res) => {
-      setProducts(res?.data)
+    adminProductAPI.putState(id, !active).then(() => {
+      getInit();
     }).catch(() => alert("변경 실패했습니다."));
   }
 
@@ -130,7 +130,7 @@ const ProductPage = () => {
                         size="sm"
                         onClick={() => setActiveState(p.id, p.active ?? false)}
                       >
-                        {p.active ? "판매 재개" : "품절 처리"}
+                        {!p.active ? "판매 재개" : "품절 처리"}
                       </Button>
                       <Button
                         variant="ghost"
