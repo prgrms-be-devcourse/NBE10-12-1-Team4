@@ -6,6 +6,7 @@ import com.backend.domain.menu.entity.Menu;
 import com.backend.domain.menu.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,16 +28,19 @@ public class MenuService {
 	public long count() { return menuRepository.count();}
 
 	//원두 전체 조회
+	@Transactional
 	public List<Menu> findAll() {
 		return menuRepository.findAll();
 	}
 
 	//원두 단일 조회
+	@Transactional
 	public Optional<Menu> findById(Integer id) {
 		return menuRepository.findById(id);
 	}
 
 	//원두 생성
+	@Transactional
 	public Menu writeMenu(MenuRequest request) throws IOException {
 		MultipartFile imgFile = request.getImg();
 
@@ -72,6 +76,7 @@ public class MenuService {
 	}
 
 	//원두 수정
+	@Transactional
 	public Menu modifyMenu(int id, MenuRequest request) throws IOException {
 		Menu menu = menuRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("메뉴를 찾을 수 없습니다."));
@@ -109,6 +114,7 @@ public class MenuService {
 		return menu;
 	}
 
+	@Transactional
 	public Menu activeModify(int id, MenuActiveRequest request) {
 		Menu menu = menuRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("메뉴를 찾을 수 없습니다."));
@@ -116,6 +122,7 @@ public class MenuService {
 		return menu;
 	}
 
+	@Transactional
 	public void delete(Menu menu) {
 		menuRepository.delete(menu);
 	}
