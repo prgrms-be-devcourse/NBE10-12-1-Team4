@@ -1,8 +1,9 @@
 package com.backend.domain.order.controller;
 
-import com.backend.domain.order.dto.OrderRequest;
 import com.backend.domain.order.dto.OrderResponse;
+import com.backend.domain.order.dto.OrderRequest;
 import com.backend.domain.order.service.OrderService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,4 +28,10 @@ public class OrderController {
         }
         return orderService.getOrdersByEmail(email);
     }
+
+    @GetMapping("/{orderNumber}")
+    public OrderResponse getOrderToOrderNumber(@PathVariable Long orderNumber) {
+        return orderService.getOrderToOrderNumber(orderNumber);
+    }
+
 }
