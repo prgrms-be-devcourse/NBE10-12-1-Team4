@@ -13,6 +13,6 @@ public class MenuRequest {
 	private Integer price;
 	private String description;
 	private MultipartFile img;
-	private boolean active;
+	private Boolean active;
 	private Integer stock;
 }

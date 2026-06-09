@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MenuActiveRequest {
-	private boolean active;
+	private Boolean active;
 }
