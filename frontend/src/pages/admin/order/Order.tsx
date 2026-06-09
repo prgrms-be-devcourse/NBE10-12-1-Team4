@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, Dialog } from "@radix-ui/themes";
 import OrderDetail from "./OrderDetail";
 import type { Order } from "../../../type/admin";
-import { STATUSES } from "../../../type/admin";
+import { STATUSES, STATUS_LABEL } from "../../../type/admin";
 import { Icons } from "../components/icons";
 import { PageHead } from "../components/PageHead";
 import { Empty, StatusBadge } from "../components/ui";
@@ -31,6 +31,8 @@ const OrderPage = () => {
 
   const getInit = () => {
     orderAPI.getAll("admin").then((res) => {
+      console.log(res?.data)
+
       setOrders(res?.data)
     })
   }
@@ -60,7 +62,7 @@ const OrderPage = () => {
             <SearchInput
               value={q}
               onChange={setQ}
-              placeholder="주문번호 · 이메일"
+              placeholder="이메일"
             />
           </div>
         </div>
@@ -78,6 +80,7 @@ const OrderPage = () => {
               <th style={{ width: 250 }}>고객</th>
               <th style={{ width: 170 }}>금액</th>
               <th style={{ width: 190 }}>시간</th>
+              <th style={{ width: 190 }}>배달 날짜</th>
               <th>상태</th>
               <th style={{ textAlign: "center" }}>관리</th>
             </tr>
@@ -85,18 +88,19 @@ const OrderPage = () => {
           <tbody>
               {orders?.map((o) => (
                 <tr
-                  key={o.id}
+                  key={o.orderNumber}
                   style={{ cursor: "pointer" }}
-                  onClick={() => { setDetail(o.id); setIsOpen(true); }}
+                  onClick={() => { setDetail(o.orderNumber); setIsOpen(true); }}
                 >
                   <td className="mono">
                     {o.orderNumber}
                   </td>
                   <td>{o.email}</td>
-                  <td>{fmt(o.price, "원")}</td>
+                  <td>{fmt(o.totalAmount, "원")}</td>
                   <td style={{ whiteSpace: "nowrap" }}>
-                    {new Date(o.time).toLocaleString("ko-KR")}
+                    {new Date(o.createdAt).toLocaleString("ko-KR")}
                   </td>
+                  <td>{o.deliveryDate}</td>
                   <td>
                     <StatusBadge status={o.status} />
                   </td>
@@ -117,7 +121,7 @@ const OrderPage = () => {
                     >
                       {STATUSES?.map((st) => (
                         <option key={st} value={st}>
-                          {st}
+                          {STATUS_LABEL[st]}
                         </option>
                       ))}
                     </select>

@@ -17,7 +17,7 @@ export const orderAPI = {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: ORDERS };
     }
-    return client.get("/orders", { params: { email } });
+    return client.get("/guest/orders", { params: { email } });
   },
   putState: async (id: number, state: string) => {
     if (USE_MOCK) {
@@ -26,12 +26,12 @@ export const orderAPI = {
     }
     return client.put(`/admin/orders/${id}`, { state });
   },
-  getOrderDetail: async (id: number) => {
+  getOrderDetail: async (id: string) => {
     if (USE_MOCK) {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: ORDERS.find((o) => o.id === id) ?? null }; //테스트 용으로 1번만 수정되도록 진행
     }
-    return client.put(`/admin/orders/${id}`);
+    return client.get(`/admin/orders/${id}`);
   },
 };
 

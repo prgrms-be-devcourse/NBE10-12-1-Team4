@@ -1,7 +1,11 @@
 import * as React from "react";
 
-export const STATUSES: OrderStatus[] = ["접수", "준비중", "완료", "취소"];
-export type OrderStatus = "접수" | "준비중" | "완료" | "취소";
+export const STATUSES: OrderStatus[] = ["PENDING", "READY_FOR_DELIVERY"];
+export type OrderStatus = "PENDING" | "READY_FOR_DELIVERY";
+export const STATUS_LABEL: Record<OrderStatus, string> = {
+  PENDING: "준비중",
+  READY_FOR_DELIVERY: "배송완료",
+};
 
 export type Product = {
   id?: string;

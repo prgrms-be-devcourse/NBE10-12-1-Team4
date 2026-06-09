@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Icons } from "./icons";
 import type { OrderStatus, Product } from "../../../type/admin";
+import { STATUS_LABEL } from "../../../type/admin";
 
 type Tone = "gray" | "brown" | "green" | "amber" | "red" | "blue";
 
@@ -86,15 +87,13 @@ export function Badge({
 }
 
 const STATUS_TONE: Record<OrderStatus, Tone> = {
-  접수: "blue",
-  준비중: "amber",
-  완료: "green",
-  취소: "red",
+  PENDING: "blue",
+  READY_FOR_DELIVERY: "green",
 };
 export function StatusBadge({ status }: { status: OrderStatus }) {
   return (
     <Badge tone={STATUS_TONE[status] || "gray"} dot>
-      {status}
+      {STATUS_LABEL[status] ?? status}
     </Badge>
   );
 }
