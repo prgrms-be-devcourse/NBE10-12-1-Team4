@@ -12,12 +12,12 @@ const client = axios.create({
 
 // ─── 주문 관리 API ──────────────────────────────────────
 export const orderAPI = {
-  getAll: async () => {
+  getAll: async (email:string) => {
     if (USE_MOCK) {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: ORDERS };
     }
-    return client.get("/orders");
+    return client.get("/orders", { params: { email } });
   },
   putState: async (id: number, state: string) => {
     if (USE_MOCK) {
