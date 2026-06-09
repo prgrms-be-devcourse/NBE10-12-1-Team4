@@ -26,12 +26,12 @@ export const orderAPI = {
     }
     return client.put(`/admin/orders/${id}`, { state });
   },
-  getOrderDetail: async (id: string) => {
+  getOrderDetail: async (orderNumber: number) => {
     if (USE_MOCK) {
       await new Promise((resolve) => setTimeout(resolve, 200));
-      return { data: ORDERS.find((o) => o.id === id) ?? null }; //테스트 용으로 1번만 수정되도록 진행
+      return { data: ORDERS.find((o) => o.id === orderNumber) ?? null }; //테스트 용으로 1번만 수정되도록 진행
     }
-    return client.get(`/admin/orders/${id}`);
+    return client.get(`/guest/orders/${orderNumber}`);
   },
 };
 

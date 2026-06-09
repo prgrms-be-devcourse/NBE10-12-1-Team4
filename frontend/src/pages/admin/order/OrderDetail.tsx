@@ -44,24 +44,24 @@ const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
             borderRadius: "var(--radius-3)",
           }}
         >
-          {order?.orderItems?.map((item) => {
+          {order?.items?.map((item, index) => {
             return (
               <Flex
                 justify="between"
                 align="center"
                 mb="3"
-                key={item?.id}
+                key={index}
               >
                 <Box>
                   <Text weight="bold" size="3" as="div">
-                    {item?.name}
+                    {item?.menuName}
                   </Text>
                   <Text color="gray" size="2">
                     {item?.price.toLocaleString()}원
                   </Text>
                 </Box>
                 <Flex align="center" gap="3">
-                    <Text>{item?.stock.toLocaleString()}</Text>
+                    <Text>{item?.quantity.toLocaleString()}</Text>
                 </Flex>
               </Flex>
             );
@@ -69,13 +69,13 @@ const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
           <Box mt="3" pt="3" style={{ borderTop: '1px solid var(--gray-5)' }}>
               <Flex justify="between" align="center">
                 <Text weight="bold" size="4">총 결제금액</Text>
-                <Text weight="bold" size="5" color="brown">{order?.price.toLocaleString()}원</Text>
+                <Text weight="bold" size="5" color="brown">{order?.totalAmount.toLocaleString()}원</Text>
               </Flex>
             </Box>
         </Box>
         <Box mt="2">
           <Text as="div" size="2" mb="1" weight="bold">
-            이메일 (합배송 기준)
+            이메일
           </Text>
           <Text as="div" size="2" mb="1">
             {order?.email}
@@ -86,7 +86,7 @@ const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
             배송지 주소
           </Text>
           <Text as="div" size="2" mb="1">
-            {order?.address}
+            {order?.address} / {order?.zipcode}
           </Text>
         </Box>
         <Box>

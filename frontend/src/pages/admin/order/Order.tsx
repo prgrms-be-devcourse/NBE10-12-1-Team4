@@ -31,8 +31,6 @@ const OrderPage = () => {
 
   const getInit = () => {
     orderAPI.getAll("admin").then((res) => {
-      console.log(res?.data)
-
       setOrders(res?.data)
     })
   }

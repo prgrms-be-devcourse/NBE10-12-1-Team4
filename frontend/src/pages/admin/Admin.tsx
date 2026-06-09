@@ -21,7 +21,7 @@ const Admin = () => {
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <MenuBar
         brand={{
-          title: "로스터스 라운지",
+          title: "Grids & Circles",
           subtitle: "관리자 콘솔",
           icon: <Icons.cup size={17} />,
         }}
