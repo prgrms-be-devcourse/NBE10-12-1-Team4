@@ -1,6 +1,6 @@
-packagecom.gridscircles.cafe.menu.entity;
+package com.gridscircles.cafe.menu.entity;
 
-        importcom.gridscircles.cafe.common.entity.BaseEntity;
+import com.gridscircles.cafe.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

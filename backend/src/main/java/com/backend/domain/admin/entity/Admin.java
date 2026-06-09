@@ -1,6 +1,6 @@
-package com.gridscircles.cafe.admin.entity;
+package com.backend.domain.admin.entity;
 
-import com.gridscircles.cafe.common.entity.BaseEntity;
+import com.backend.global.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,8 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "admins")
-public class Admin extends BaseEntity
-{
+public class Admin extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
