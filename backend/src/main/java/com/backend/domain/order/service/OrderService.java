@@ -70,13 +70,14 @@ public class OrderService {
 
         Order order = existingOrder.orElseGet(() ->
                 Order.builder()
+                        .orderNumber(orderRepository.getNextOrderNumber())
                         .email(request.getEmail())
                         .address(request.getAddress())
                         .zipcode(request.getZipcode())
                         .phone(request.getPhone())
                         .batchDeadline(batchDeadline)
                         .deliveryDate(batchDeadline.toLocalDate().plusDays(1))
-                        .status(OrderStatus.PENDING) // 변경 (CREATED → PENDING)
+                        .status(OrderStatus.PENDING)
                         .build()
         );
 
