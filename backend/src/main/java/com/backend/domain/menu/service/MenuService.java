@@ -100,7 +100,6 @@ public class MenuService {
 				request.getStock(),
 				request.getWeight(),
 				request.getDescription(),
-				request.getActive(),
 				imageUrl,
 				imgName
 		);
