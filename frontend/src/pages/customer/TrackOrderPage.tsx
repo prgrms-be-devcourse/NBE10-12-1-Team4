@@ -1,6 +1,7 @@
 import { Container, Heading, Text, Box, Card, Flex, TextField, Button, Badge, Separator } from '@radix-ui/themes';
 import { MagnifyingGlassIcon, ClockIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
+import { orderAPI } from '../../services/api';
 
 // 백엔드 API 명세에 맞춘 인터페이스
 interface OrderItemResponse {
@@ -42,37 +43,16 @@ export default function TrackOrderPage() {
       return;
     }
     
-    // UI 디자인 확인을 위한 임시 가짜 데이터 (Mock Data)
-    const mockData: OrderResponse[] = [
-      {
-        orderNumber: 1718293012,
-        email: email,
-        address: '서울특별시 강남구 테헤란로 123',
-        zipcode: '06234',
-        phone: '010-1234-5678',
-        deliveryDate: '2026-06-10',
-        totalAmount: 25000,
-        status: 'PENDING',
-        createdAt: '2026-06-09T14:30:00',
-        items: [
-          { menuName: '콜롬비아 수프리모', price: 15000, quantity: 1 },
-          { menuName: '에티오피아 예가체프', price: 10000, quantity: 1 }
-        ]
-      }
-    ];
-
-    setOrders(mockData);
-    setIsSearched(true);
-
-    // TODO: 다음 단계에서 실제 백엔드 연동 시 아래 주석을 해제하고 API를 연결합니다.
-    /*
-    axios.get(`/api/guest/orders?email=${email}`)
+    // 실제 백엔드 연동
+    orderAPI.getOrdersByEmail(email)
       .then(res => {
         setOrders(res.data);
         setIsSearched(true);
       })
-      .catch(err => alert('조회에 실패했습니다.'));
-    */
+      .catch(err => {
+        console.error(err);
+        alert('주문 내역 조회에 실패했습니다.');
+      });
   };
 
   // 주문 상태에 따른 뱃지 색상 및 텍스트 반환
