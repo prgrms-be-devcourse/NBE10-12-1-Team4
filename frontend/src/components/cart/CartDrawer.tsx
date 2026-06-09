@@ -1,17 +1,21 @@
 import { Dialog, Button, Flex, Text, TextField, Box, IconButton, Spinner } from '@radix-ui/themes';
 import { MinusIcon, PlusIcon, Cross2Icon } from '@radix-ui/react-icons';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../store/CartContext';
 import { productAPI, orderAPI } from '../../services/api';
 
 export default function CartDrawer() {
   const { items, updateQuantity, removeItem, clear, totalCount } = useCart();
+  const navigate = useNavigate();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   // 주문 폼 상태
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [phone, setPhone] = useState('');
 
   // 장바구니에서 상품 단가/이름을 매핑하기 위해 전체 상품 목록을 가져옴
@@ -33,24 +37,62 @@ export default function CartDrawer() {
       alert('장바구니가 비어있습니다.');
       return;
     }
-    if (!email || !address) {
-      alert('필수 배송 정보를 입력해주세요.');
+    if (!email || !address || !zipcode || !phone) {
+      alert('이메일, 배송지 주소, 우편번호, 연락처를 모두 입력해주세요.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('올바른 이메일 형식을 입력해주세요.');
+      return;
+    }
+
+    const zipcodeRegex = /^\d{5}$/;
+    if (!zipcodeRegex.test(zipcode)) {
+      alert('우편번호는 5자리의 숫자로 입력해주세요.');
+      return;
+    }
+
+    const phoneRegex = /^\d{2,3}-?\d{3,4}-?\d{4}$/;
+    if (!phoneRegex.test(phone)) {
+      alert('올바른 연락처 형식을 입력해주세요. 띄어쓰기 및 하이픈 제외 (예: 01012345678)');
       return;
     }
 
     setLoading(true);
     try {
-      const res = await orderAPI.create({ email, address, phone, items });
+      const res = await orderAPI.create({ email, address, zipcode, phone, items });
       const { merged, message } = res.data;
-      
+
       clear(); // 결제 성공 시 장바구니 비우기
-      
-      if (merged) {
-        alert(`[합배송 완료]\n${message}`);
-      } else {
-        alert(`[주문 완료]\n${message}`);
-      }
-      
+
+      const enrichedItems = items.map(item => {
+        const detail = getProductDetail(item.productId);
+        return {
+          ...item,
+          name: detail.name,
+          price: detail.price
+        };
+      });
+
+      setOpen(false); // 모달 닫기
+      navigate('/order-complete', {
+        state: {
+          orderDetails: {
+            email,
+            address,
+            zipcode,
+            phone,
+            items: enrichedItems,
+            totalPrice,
+            merged,
+            message
+          }
+        }
+      });
+
+
     } catch (error) {
       alert('주문 처리 중 오류가 발생했습니다.');
     } finally {
@@ -58,10 +100,10 @@ export default function CartDrawer() {
     }
   };
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button size="3" variant="solid" color="brown" style={{ cursor: 'pointer' }}>
-          장바구니 및 결제
+          장바구니 및 결제 {totalCount > 0 && `(${totalCount})`}
         </Button>
       </Dialog.Trigger>
 
@@ -120,6 +162,10 @@ export default function CartDrawer() {
           <Box>
             <Text as="div" size="2" mb="1" weight="bold">배송지 주소</Text>
             <TextField.Root placeholder="서울시 강남구 테헤란로..." value={address} onChange={(e) => setAddress(e.target.value)} />
+          </Box>
+          <Box>
+            <Text as="div" size="2" mb="1" weight="bold">우편번호</Text>
+            <TextField.Root placeholder="12345" value={zipcode} onChange={(e) => setZipcode(e.target.value)} maxLength={5} />
           </Box>
           <Box>
             <Text as="div" size="2" mb="1" weight="bold">연락처</Text>

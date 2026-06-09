@@ -1,10 +1,8 @@
-import { Flex, Heading, Link as RadixLink, Box, Badge } from '@radix-ui/themes';
+import { Flex, Heading, Link as RadixLink, Box } from '@radix-ui/themes';
 import { Link, useLocation } from 'react-router-dom';
-import { useCart } from '../../store/CartContext';
 
 export default function Navbar() {
   const location = useLocation();
-  const { totalCount } = useCart();
 
   const getLinkStyle = (path: string) => {
     return location.pathname === path
@@ -37,11 +35,6 @@ export default function Navbar() {
           <RadixLink asChild style={{ textDecoration: 'none', ...getLinkStyle('/track') }}>
             <Link to="/track">주문 조회</Link>
           </RadixLink>
-          {totalCount > 0 && (
-            <Badge color="brown" variant="solid" radius="full">
-              {totalCount}
-            </Badge>
-          )}
         </Flex>
       </Flex>
     </Box>
