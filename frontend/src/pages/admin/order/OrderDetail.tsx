@@ -13,6 +13,12 @@ import { orderAPI } from "../../../services/admin/api";
 const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
   const [order, setOrder] = useState<OrderDetail | null>(null);
 
+  const getInit = () => {
+    orderAPI.getOrderDetail(id).then((res) => {
+      setOrder(res?.data)
+    })
+  }
+
   useEffect(() => {
     if (!isOpen) return;
     const handleEsc = (e: KeyboardEvent) => {
@@ -23,9 +29,7 @@ const OrderDetail = ({ isOpen, id, onClose }: OrderDetailProps) => {
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    orderAPI.getOrderDetail(id).then((res) => {
-      setOrder(res?.data)
-    })
+    if (id) getInit()
   }, [id]);
 
   if (!isOpen) return null;

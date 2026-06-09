@@ -112,12 +112,20 @@ const StaticsPage = () => {
   const [topBean, setTopBean] = useState(null)
 
   useEffect(() => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const endDate = yesterday.toISOString().slice(0, 10);
+    const start = new Date(yesterday);
+    start.setDate(start.getDate() - 6);
+    const startDate = start.toISOString().slice(0, 10);
+
     staticsAPI.getBeans().then((res) => {
-      setBeanData(res?.data ?? [])
-      setTopBean(res?.data?.[0] ?? null)
+      const beans = Array.isArray(res?.data) ? res.data : [];
+      setBeanData(beans)
+      setTopBean(beans[0] ?? null)
     })
-    staticsAPI.getRange().then((res) => {
-      setRangeData(res?.data)
+    staticsAPI.getRange(startDate, endDate).then((res) => {
+      setRangeData(Array.isArray(res?.data) ? res.data : [])
     })
   }, [])
 
@@ -130,7 +138,7 @@ const StaticsPage = () => {
       <Card>
         <ChartCard
           title="일별 매출 추이"
-          sub="최근 14일 결제 합계"
+          sub="최근 7일 결제 합계 (어제 기준)"
           children={
             <ResponsiveContainer width="100%" height={236}>
               <AreaChart
@@ -187,7 +195,7 @@ const StaticsPage = () => {
           children={
             <ResponsiveContainer
               width="100%"
-              height={Math.max(220, beanData?.length * 38)}
+              height={Math.max(220, beanData.length * 38)}
             >
               <BarChart
                 data={beanData}
@@ -224,7 +232,7 @@ const StaticsPage = () => {
                   barSize={20}
                   isAnimationActive={false}
                 >
-                  {beanData.map((b) => (
+                  {beanData?.length >0 && beanData?.map((b) => (
                     <Cell key={b.name} fill={b.color || "#6b3e22"} />
                   ))}
                 </Bar>

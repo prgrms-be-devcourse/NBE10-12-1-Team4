@@ -24,15 +24,19 @@ const OrderPage = () => {
   }
 
   const changeState = (id: number, status: string) => {
-    orderAPI.putState(id, status).then((res) => {
+    orderAPI.putState(id, status).then(() => {
+      getInit()
+    })
+  }
+
+  const getInit = () => {
+    orderAPI.getAll("admin").then((res) => {
       setOrders(res?.data)
     })
   }
 
   useEffect(() => {
-    orderAPI.getAll().then((res) => {
-      setOrders(res?.data)
-    })
+    getInit()
   }, [])
 
   return (
