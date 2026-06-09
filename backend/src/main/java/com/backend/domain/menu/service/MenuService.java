@@ -24,6 +24,8 @@ public class MenuService {
 
 	private final MenuRepository menuRepository;
 
+	public long count() { return menuRepository.count();}
+
 	//원두 전체 조회
 	public List<Menu> findAll() {
 		return menuRepository.findAll();
