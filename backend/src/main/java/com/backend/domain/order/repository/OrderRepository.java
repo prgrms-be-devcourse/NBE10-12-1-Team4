@@ -13,18 +13,18 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, String> {
 
-    @Query("SELECT new com.backend.domain.statistics.dto.DailyStatisticsResponse(FUNCTION('DATE', o.createdAt), SUM(o.totalAmount)) " +
-           "FROM Order o " +
-           "WHERE o.createdAt >= :startDate " +
-           "GROUP BY FUNCTION('DATE', o.createdAt) " +
-           "ORDER BY FUNCTION('DATE', o.createdAt) ASC")
+    @Query(value = "SELECT CAST(created_at AS date) as date, SUM(total_amount) as totalAmount " +
+            "FROM orders " +
+            "WHERE created_at >= :startDate " +
+            "GROUP BY CAST(created_at AS date) " +
+            "ORDER BY CAST(created_at AS date) ASC", nativeQuery = true)
     List<DailyStatisticsResponse> getDailySales(@Param("startDate") LocalDateTime startDate);
 
-    @Query("SELECT new com.backend.domain.statistics.dto.DailyStatisticsResponse(FUNCTION('DATE', o.createdAt), SUM(o.totalAmount)) " +
-           "FROM Order o " +
-           "WHERE o.createdAt >= :startDate AND o.createdAt <= :endDate " +
-           "GROUP BY FUNCTION('DATE', o.createdAt) " +
-           "ORDER BY FUNCTION('DATE', o.createdAt) ASC")
+    @Query(value = "SELECT CAST(created_at AS date) as date, SUM(total_amount) as totalAmount " +
+            "FROM orders " +
+            "WHERE created_at >= :startDate AND created_at <= :endDate " +
+            "GROUP BY CAST(created_at AS date) " +
+            "ORDER BY CAST(created_at AS date) ASC", nativeQuery = true)
     List<DailyStatisticsResponse> getDailySalesBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     // 이메일 기준 주문 조회 (기본)
