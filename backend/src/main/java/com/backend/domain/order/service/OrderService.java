@@ -62,6 +62,13 @@ public class OrderService {
         return toResponse(order);
     }
 
+    @Transactional
+    public void editOrderStatus(Long orderNumber, OrderStatusRequest request) {
+        Order order = orderRepository.findByOrderNumber(orderNumber)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.changeStatus(request.getStatus());
+    }
+
     // 주문 생성 + 이메일 기준 합치기
     @Transactional
     public void createOrder(OrderRequest request) {
