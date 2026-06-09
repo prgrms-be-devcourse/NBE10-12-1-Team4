@@ -1,4 +1,4 @@
-package com.backend.statistics.dto;
+package com.backend.domain.statistics.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

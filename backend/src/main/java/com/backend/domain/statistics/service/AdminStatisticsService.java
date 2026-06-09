@@ -1,10 +1,10 @@
-package com.backend.statistics.service;
+package com.backend.domain.statistics.service;
 
-import com.backend.order.repository.OrderItemRepository;
-import com.backend.order.repository.OrderRepository;
-import com.backend.statistics.dto.BeanStatisticsResponse;
-import com.backend.statistics.dto.DailyStatisticsResponse;
-import com.backend.statistics.dto.RangeStatisticsResponse;
+import com.backend.domain.order.repository.OrderItemRepository;
+import com.backend.domain.order.repository.OrderRepository;
+import com.backend.domain.statistics.dto.BeanStatisticsResponse;
+import com.backend.domain.statistics.dto.DailyStatisticsResponse;
+import com.backend.domain.statistics.dto.RangeStatisticsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

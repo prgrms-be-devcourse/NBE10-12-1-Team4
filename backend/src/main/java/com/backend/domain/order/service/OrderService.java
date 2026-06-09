@@ -35,7 +35,7 @@ public class OrderService {
 
     // 단일 주문 조회
     @Transactional(readOnly = true)
-    public OrderResponse getOrder(Long orderId) {
+    public OrderResponse getOrder(String orderId) {
 
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
