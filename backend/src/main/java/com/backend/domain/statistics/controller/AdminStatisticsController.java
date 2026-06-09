@@ -1,9 +1,9 @@
-package com.backend.statistics.controller;
+package com.backend.domain.statistics.controller;
 
-import com.backend.statistics.dto.BeanStatisticsResponse;
-import com.backend.statistics.dto.DailyStatisticsResponse;
-import com.backend.statistics.dto.RangeStatisticsResponse;
-import com.backend.statistics.service.AdminStatisticsService;
+import com.backend.domain.statistics.dto.BeanStatisticsResponse;
+import com.backend.domain.statistics.dto.DailyStatisticsResponse;
+import com.backend.domain.statistics.dto.RangeStatisticsResponse;
+import com.backend.domain.statistics.service.AdminStatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
