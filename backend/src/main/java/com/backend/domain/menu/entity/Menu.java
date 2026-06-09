@@ -13,8 +13,8 @@ import lombok.*;
 public class Menu extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(nullable = false)
     private String name;
@@ -42,4 +42,21 @@ public class Menu extends BaseEntity {
 
     @Column(nullable = false, length = 500)
     private String imgName;
+
+    public void update(String name, String origin, Integer price, Integer stock, Integer weight,
+                       String description, boolean active, String imageUrl, String imgName) {
+        this.name = name;
+        this.origin = origin;
+        this.price = price;
+        this.stock = stock;
+        this.weight = weight;
+        this.description = description;
+        this.active = active;
+        this.imageUrl = imageUrl;
+        this.imgName = imgName;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
