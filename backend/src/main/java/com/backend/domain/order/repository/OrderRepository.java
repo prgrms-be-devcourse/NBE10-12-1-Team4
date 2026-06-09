@@ -51,4 +51,7 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 
     // 특정 기간 주문 조회 (매출 통계용)
     List<Order> findByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT COALESCE(MAX(o.orderNumber), 0) + 1 FROM Order o")
+    Long getNextOrderNumber();
 }
