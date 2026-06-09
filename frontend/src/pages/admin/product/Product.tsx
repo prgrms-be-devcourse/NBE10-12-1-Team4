@@ -32,10 +32,14 @@ const ProductPage = () => {
     }).catch(() => alert("변경 실패했습니다."));
   }
 
-  useEffect(() => {
+  const getInit = () => {
     adminProductAPI.getAll().then((res) => {
       setProducts(res?.data)
     })
+  }
+
+  useEffect(() => {
+    getInit()
   }, [])
 
   return (
@@ -113,7 +117,7 @@ const ProductPage = () => {
                     </span>
                   </td>
                   <td>
-                    {p.active ? (
+                    {!p.active ? (
                       <Badge tone="red" dot children="품절"/>
                     ) : (
                       <Badge tone="green" dot children="판매중"/>
@@ -156,7 +160,7 @@ const ProductPage = () => {
     </div>
     <ProductForm
       isOpen={isOpen}
-      onClose={() => { setIsOpen(false); setDetailId(null); }}
+      onClose={() => { setIsOpen(false); setDetailId(null); getInit(); }}
       id={detailId}
     />
     </>

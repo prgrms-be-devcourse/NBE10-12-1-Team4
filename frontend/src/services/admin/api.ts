@@ -3,10 +3,10 @@ import { BEANS, ORDERS, ORDERS2, STATS } from "../../pages/admin/dumpData";
 
 let mockBeans = [...BEANS];
 
-const USE_MOCK = true; // FIXME 백엔드 연동 시 false로 변경
+const USE_MOCK = false;
 
 const client = axios.create({
-  baseURL: "/api",
+  baseURL: "http://localhost:8080/api",
   headers: { "Content-Type": "application/json" },
 });
 
