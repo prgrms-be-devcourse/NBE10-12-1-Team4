@@ -115,7 +115,7 @@ const OrderPage = () => {
                         display: "inline-block",
                       }}
                       value={o.status}
-                      onChange={(e) => changeState(o.id, e.target.value)}
+                      onChange={(e) => changeState(o.orderNumber, e.target.value)}
                     >
                       {STATUSES?.map((st) => (
                         <option key={st} value={st}>

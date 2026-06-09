@@ -24,7 +24,7 @@ export const orderAPI = {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: ORDERS2 }; //테스트 용으로 1번만 수정되도록 진행
     }
-    return client.put(`/admin/orders/${id}`, { state });
+    return client.patch(`/guest/orders/active/${id}`, { status: state });
   },
   getOrderDetail: async (orderNumber: number) => {
     if (USE_MOCK) {
