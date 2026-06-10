@@ -120,12 +120,13 @@ const StaticsPage = () => {
     const startDate = start.toISOString().slice(0, 10);
 
     staticsAPI.getBeans().then((res) => {
-      const beans = Array.isArray(res?.data) ? res.data : [];
+      const beans = Array.isArray(res?.data?.beans) ? res.data.beans : [];
       setBeanData(beans)
       setTopBean(beans[0] ?? null)
     })
     staticsAPI.getRange(startDate, endDate).then((res) => {
-      setRangeData(Array.isArray(res?.data) ? res.data : [])
+
+      setRangeData(Array.isArray(res?.data?.daily) ? res.data.daily : [])
     })
   }, [])
 
@@ -161,7 +162,7 @@ const StaticsPage = () => {
                   vertical={false}
                 />
                 <XAxis
-                  dataKey="label"
+                  dataKey="date"
                   tickLine={false}
                   axisLine={{ stroke: "var(--border)" }}
                   interval={1}
@@ -175,7 +176,7 @@ const StaticsPage = () => {
                 <Tooltip content={<MoneyTooltip />} />
                 <Area
                   type="monotone"
-                  dataKey="revenue"
+                  dataKey="totalAmount"
                   stroke="#6b3e22"
                   strokeWidth={2.4}
                   fill="url(#gRev)"
@@ -191,7 +192,7 @@ const StaticsPage = () => {
         <ChartCard
           style={{ marginTop: 16 }}
           title="원두별 매출 통계"
-          sub={topBean ? `1위 ${topBean.name} · ${won(topBean.revenue)}` : ""}
+          sub={topBean ? `1위 ${topBean.menuName} · ${won(topBean.totalSales)}` : ""}
           children={
             <ResponsiveContainer
               width="100%"
@@ -216,7 +217,7 @@ const StaticsPage = () => {
                 />
                 <YAxis
                   type="category"
-                  dataKey="name"
+                  dataKey="menuName"
                   width={132}
                   tickLine={false}
                   axisLine={false}
@@ -227,13 +228,13 @@ const StaticsPage = () => {
                   cursor={{ fill: "rgba(107,62,34,.05)" }}
                 />
                 <Bar
-                  dataKey="revenue"
+                  dataKey="totalSales"
                   radius={[0, 6, 6, 0]}
                   barSize={20}
                   isAnimationActive={false}
                 >
                   {beanData?.length >0 && beanData?.map((b) => (
-                    <Cell key={b.name} fill={b.color || "#6b3e22"} />
+                    <Cell key={b.menuName} fill={b.color || "#6b3e22"} />
                   ))}
                 </Bar>
               </BarChart>

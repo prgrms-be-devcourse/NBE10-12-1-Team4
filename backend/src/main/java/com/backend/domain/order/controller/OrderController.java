@@ -30,17 +30,4 @@ public class OrderController {
         return orderService.getOrdersByEmail(email);
     }
 
-    @GetMapping("/{orderNumber}")
-    public OrderResponse getOrderToOrderNumber(@PathVariable Long orderNumber) {
-        return orderService.getOrderToOrderNumber(orderNumber);
-    }
-
-    @PatchMapping("/active/{orderNumber}")
-    public void editOrderStatus(
-            @PathVariable Long orderNumber,
-            @RequestBody OrderStatusRequest request
-            ) {
-        orderService.editOrderStatus(orderNumber, request);
-    }
-
 }
