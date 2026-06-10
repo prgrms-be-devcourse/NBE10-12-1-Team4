@@ -102,15 +102,26 @@ public class OrderService {
             Menu menu = menuRepository.findById(itemRequest.getMenuId())
                     .orElseThrow(() -> new RuntimeException("Menu not found"));
 
-            OrderItem orderItem = OrderItem.builder()
-                    .order(order)
-                    .menu(menu)
-                    .menuNameSnapshot(menu.getName())
-                    .unitPriceSnapshot(menu.getPrice())
-                    .quantity(itemRequest.getQuantity())
-                    .build();
+            // 기존 주문 내역에 동일한 메뉴가 있는지 확인 (합배송 중복 방지)
+            Optional<OrderItem> existingItem = order.getOrderItems().stream()
+                    .filter(item -> item.getMenu().getId() == menu.getId())
+                    .findFirst();
 
-            order.addOrderItem(orderItem);
+            if (existingItem.isPresent()) {
+                // 이미 담겨 있다면 수량만 증가시킵니다.
+                existingItem.get().increaseQuantity(itemRequest.getQuantity());
+            } else {
+                // 없다면 새로 생성하여 추가합니다.
+                OrderItem orderItem = OrderItem.builder()
+                        .order(order)
+                        .menu(menu)
+                        .menuNameSnapshot(menu.getName())
+                        .unitPriceSnapshot(menu.getPrice())
+                        .quantity(itemRequest.getQuantity())
+                        .build();
+
+                order.addOrderItem(orderItem);
+            }
         }
 
         // 총 금액 계산
