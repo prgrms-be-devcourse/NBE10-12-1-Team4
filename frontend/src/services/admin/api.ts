@@ -19,12 +19,12 @@ export const orderAPI = {
     }
     return client.get("/guest/orders", { params: { email } });
   },
-  putState: async (id: number, state: string) => {
+  putState: async (orderNumber: number, state: string) => {
     if (USE_MOCK) {
       await new Promise((resolve) => setTimeout(resolve, 200));
       return { data: ORDERS2 }; //테스트 용으로 1번만 수정되도록 진행
     }
-    return client.patch(`/orders/active/${id}`, { status: state });
+    return client.patch(`/orders/active/${orderNumber}`, { status: state });
   },
   getOrderDetail: async (orderNumber: number) => {
     if (USE_MOCK) {
