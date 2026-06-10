@@ -43,16 +43,26 @@
 ## 4. API 명세 (주요 엔드포인트)
 
 ### [고객 도메인]
-* `GET /api/products` : 판매 가능한 상품 목록 조회
-* `POST /api/guest/orders` : 주문 생성 (내부적으로 합배송 로직 수행)
-* `GET /api/guest/orders?email={email}` : 고객 이메일 기반 주문 내역 조회
-* `DELETE /api/guest/orders/{order_id}` : 배송 전(PENDING) 주문 취소
+* `POST /api/guest/orders`: 주문 생성 (내부적으로 합배송 로직 수행)
+* `GET /api/guest/orders?email={email}`: 고객 이메일 기반 주문 내역 조회
+* `GET /api/guest/orders/{orderNumber}`: 주문 번호로 단일 주문 조회
 
-### [관리자 도메인]
-* `GET /api/admin/statistics/...` : 대시보드 통계 데이터 조회
-* `GET /api/admin/orders` : 전체 주문 목록 조회 (상태 필터링 지원)
-* `PATCH /api/admin/orders/{orderId}/status` : 주문 배송 상태 변경
-* `POST /api/admin/products` : 신규 메뉴 등록
+### [관리자 도메인 - 주문]
+* `GET /api/guest/orders?email=admin`: 전체 주문 목록 조회
+* `PATCH /api/guest/orders/active/{orderNumber}` : 주문 배송 상태 변경 (PENDING → READY_FOR_DELIVERY)
+
+### [관리자 도메인 - 상품]
+* `GET /api/admin/products`: 전체 상품 목록 조회
+* `GET /api/admin/products/{id}`: 상품 단일 조회
+* `POST /api/admin/products`: 신규 메뉴 등록
+* `PUT /api/admin/products/{id}`: 메뉴 수정
+* `PUT /api/admin/products/{id}/state`: 메뉴 판매 활성/비활성 상태 변경
+* `DELETE /api/admin/products/{id}`: 메뉴 삭제
+
+### [관리자 도메인 - 통계]
+* `GET /api/admin/statistics/day?days={days}`: 일별 매출 조회 (기본값: 최근 30일)
+* `GET /api/admin/statistics/bean`: 상품별 판매 통계 조회
+* `GET /api/admin/statistics/range?startDate={yyyy-MM-dd}&endDate={yyyy-MM-dd}`: 기간별 매출 조회
 
 ---
 
