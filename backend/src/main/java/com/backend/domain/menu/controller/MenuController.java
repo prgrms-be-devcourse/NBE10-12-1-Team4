@@ -9,7 +9,6 @@ import com.backend.global.resData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -32,7 +31,6 @@ public class MenuController {
     }
 
     @GetMapping("/{id}")
-    @Transactional
     public MenuResponse getMenu(
             @PathVariable int id
     ) {
@@ -41,7 +39,6 @@ public class MenuController {
     }
 
     @PostMapping
-    @Transactional
     public RsData<MenuResponse> create(@ModelAttribute MenuRequest request) throws IOException {
         Menu menu = menuService.writeMenu(request);
         return new RsData<>(
@@ -51,7 +48,6 @@ public class MenuController {
     }
 
     @PutMapping("/{id}")
-    @Transactional
     public RsData<MenuResponse> modify(@PathVariable int id, @ModelAttribute MenuRequest request) throws IOException {
         Menu menu = menuService.modifyMenu(id, request);
         return new RsData<>(
@@ -61,7 +57,6 @@ public class MenuController {
     }
 
     @PutMapping("/{id}/state")
-    @Transactional
     public RsData<MenuResponse> activeModify(@PathVariable int id,@RequestBody MenuActiveRequest request) {
         Menu menu = menuService.activeModify(id, request);
         return new RsData<>(
@@ -71,7 +66,6 @@ public class MenuController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public RsData<Void> delete(
             @PathVariable int id
     ) {

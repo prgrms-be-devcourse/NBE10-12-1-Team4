@@ -30,6 +30,8 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     // 이메일 기준 주문 조회 (기본)
     List<Order> findByEmail(String email);
 
+    Optional<Order> findByOrderNumber(Long orderNumber);
+
     // 이메일 기준 주문 조회 (OrderItem + Menu까지 한 번에 조회)
     @Query("SELECT o FROM Order o " +
             "JOIN FETCH o.orderItems oi " +
