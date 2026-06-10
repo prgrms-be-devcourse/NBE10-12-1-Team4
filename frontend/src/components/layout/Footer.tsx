@@ -17,7 +17,7 @@ export default function Footer() {
         </Text>
 
         {/* 관리자 페이지 링크 목업 껍데기 (실제 동작 안함) */}
-        <RadixLink href="#" size="1" color="gray" style={{ textDecoration: 'none' }} onClick={MOCK_TEXT.navLogin}>
+        <RadixLink href="#" size="1" color="gray" style={{ textDecoration: 'none' }} onClick={MOCK_TEXT?.navLogin}>
           {MOCK_TEXT.adminLogin}
         </RadixLink>
       </Flex>
