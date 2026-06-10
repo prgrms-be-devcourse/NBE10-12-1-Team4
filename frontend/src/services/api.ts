@@ -6,7 +6,7 @@ import {
   mockOrderDetail,
 } from '../mocks/mockData';
 
-const USE_MOCK = true; // 백엔드 연동 시 false로 변경
+const USE_MOCK = false; // 백엔드 연동 시작!
 
 const client = axios.create({
   baseURL: '/api',
@@ -20,7 +20,7 @@ export const productAPI = {
       await new Promise((resolve) => setTimeout(resolve, 500)); // 네트워크 딜레이 시뮬레이션
       return { data: mockProducts };
     }
-    return client.get('/products');
+    return client.get('/admin/products');
   },
 };
 

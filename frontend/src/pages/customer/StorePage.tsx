@@ -41,8 +41,9 @@ export default function StorePage() {
               id={product.id}
               name={product.name}
               price={product.price}
-              roastLevel={product.roastLevel}
-              aroma={product.aroma}
+              roastLevel={product.origin || '원두'}
+              aroma={product.description || '향긋한 커피 향'}
+              imageUrl={product.img}
             />
           ))}
         </Grid>
