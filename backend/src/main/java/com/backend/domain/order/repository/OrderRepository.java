@@ -4,6 +4,7 @@ import com.backend.domain.order.entity.Order;
 import com.backend.domain.order.entity.OrderStatus;
 import com.backend.domain.statistics.dto.DailyStatisticsResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -56,4 +57,8 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 
     @Query("SELECT COALESCE(MAX(o.orderNumber), 0) + 1 FROM Order o")
     Long getNextOrderNumber();
+
+    @Modifying
+    @Query(value = "UPDATE orders SET created_at = :createdAt WHERE id = :id", nativeQuery = true)
+    void updateCreatedAt(@Param("id") String id, @Param("createdAt") LocalDateTime createdAt);
 }
