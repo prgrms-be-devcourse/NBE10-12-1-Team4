@@ -5,7 +5,7 @@ import Footer from './components/layout/Footer';
 import StorePage from './pages/customer/StorePage';
 import TrackOrderPage from './pages/customer/TrackOrderPage';
 import Admin from './pages/admin/Admin';
-import Login from './pages/admin/login/login';
+import Login from './pages/admin/login/Login';
 
 function App() {
   const location = useLocation();

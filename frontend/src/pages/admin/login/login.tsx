@@ -1,8 +1,24 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Icons } from "../components/icons";
 import { Button, Field } from "../components/ui";
 import { TextField } from '@radix-ui/themes';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim() && password.trim()) {
+      navigate("/admin");
+    } else {
+      setError(true);
+    }
+  };
+
   return (
     <div
       style={{
@@ -121,8 +137,7 @@ const Login = () => {
           padding: 32,
         }}
       >
-        <form style={{ width: "100%", maxWidth: 380 }}>
-        {/* <form onSubmit={submit} style={{ width: "100%", maxWidth: 380 }}> */}
+        <form onSubmit={handleSubmit} style={{ width: "100%", maxWidth: 380 }}>
           <h2
             style={{
               margin: 0,
@@ -142,38 +157,36 @@ const Login = () => {
               lineHeight: 1.55,
             }}
           >
-            주문 확인 메일을 받을 이메일 주소를 입력해 주세요.
+            관리자 계정으로 로그인해 주세요.
           </p>
 
           <Field label="이메일"
             children={
               <TextField.Root
-              type="email"
-              placeholder="you@example.com"
-              // value={val}
-              autoFocus
-              // onChange={(e) => setVal(e.target.value)}
-              // onBlur={() => setTouched(true)}
-            />
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                autoFocus
+                onChange={(e) => { setEmail(e.target.value); setError(false); }}
+              />
             }
           />
-          {/* {touched && !valid && (
-            <div style={{ fontSize: 12.5, color: "var(--red)", marginTop: 7 }}>
-              올바른 이메일 주소를 입력해 주세요.
-            </div>
-          )} */}
           <p/>
           <Field label="비밀번호"
             children={
               <TextField.Root
-              type="password"
-              // value={val}
-              autoFocus
-              // onChange={(e) => setVal(e.target.value)}
-              // onBlur={() => setTouched(true)}
-            />
+                type="password"
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setError(false); }}
+              />
             }
           />
+
+          {error && (
+            <div style={{ fontSize: 12.5, color: "var(--red-9)", marginTop: 8 }}>
+              이메일과 비밀번호를 입력해 주세요.
+            </div>
+          )}
 
           <Button
             type="submit"
