@@ -3,14 +3,15 @@ import { PlusIcon } from '@radix-ui/react-icons';
 import { useCart } from '../../store/CartContext';
 
 export interface ProductProps {
-  id: string;
+  id: string | number;
   name: string;
   price: number;
   roastLevel: string;
   aroma: string;
+  imageUrl?: string;
 }
 
-export default function ProductCard({ id, name, price, roastLevel, aroma }: ProductProps) {
+export default function ProductCard({ id, name, price, roastLevel, aroma, imageUrl }: ProductProps) {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
@@ -21,8 +22,12 @@ export default function ProductCard({ id, name, price, roastLevel, aroma }: Prod
   return (
     <Card size="2" className="product-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Inset clip="padding-box" side="top" pb="current">
-        <div style={{ height: '220px', backgroundColor: 'var(--gray-3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Text color="gray" size="2">원두 이미지</Text>
+        <div style={{ height: '220px', backgroundColor: 'var(--gray-3)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          {imageUrl ? (
+            <img src={imageUrl} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ) : (
+            <Text color="gray" size="2">이미지 없음</Text>
+          )}
         </div>
       </Inset>
       
