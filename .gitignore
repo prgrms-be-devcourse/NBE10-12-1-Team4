@@ -27,3 +27,23 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# =========================
+# Backend (Spring Boot & Java)
+# =========================
+.gradle
+backend/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+*.class
+
+# =========================
+# User Uploads (Images)
+# =========================
+backend/uploads/*
+
+# 필수 기본 이미지는 예외 처리 (깃허브에 업로드됨)
+!backend/uploads/p1.png
+!backend/uploads/p2.png
+!backend/uploads/p4.png
+!backend/uploads/p5.png
